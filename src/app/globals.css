@@ -3,19 +3,23 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #ededed;
   --foreground: #171717;
+  --primaryColor: #330099 ;
+  --primaryColor_2: #2B0071 ;
+  --secondaryColor: #CCCCCC ;
+  --darkColor: #333333 ;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+
+/* Customize the background color and progress bar of the toast */
+.toast-container .Toastify__toast {
+  background-color: var(--primaryColor_2);
+  color: #fff;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.toast-container .Toastify__progress-bar {
+  background-color: var(--secondaryColor);
 }
+
