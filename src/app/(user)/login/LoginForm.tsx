@@ -15,8 +15,6 @@ type LoginFormInputs = {
 const LoginForm = () => {
     const router = useRouter();
 
-    const [loading, setLoading] = useState(false);
-
     const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm<LoginFormInputs>({
       mode: 'onSubmit', // Validation will trigger only after form submit;
     })
@@ -25,14 +23,12 @@ const LoginForm = () => {
         
         try {
           clearErrors(); // Clear errors before submission
-          setLoading(true);
 
           //stimulate API request
           // await axios.post(`${DOMAIN}/api/login`, { email, password });
 
           router.replace('/');
           toast.success("Login successful");
-          setLoading(false);
           router.refresh();
         } catch (error:any) {
           const apiErrors = error?.response?.data?.errors;
@@ -47,7 +43,6 @@ const LoginForm = () => {
         } else {
           toast.error(error?.response?.data.message);
         }
-            setLoading(false);
         }
         
     }
@@ -55,11 +50,11 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <div className='mb-4'>
-        <label className='block text-sm mb-2'>
-        <span className="font-semibold ">Email</span> 
-        <div className="relative flex items-center">
-          <span className="absolute left-3 text-secondaryColor">
-            <MdOutlineMail size={20}/>
+        <label className='block text-xs'>
+        <span className="font-semibold">Email</span> 
+        <div className="relative flex items-center mt-2">
+          <span className="absolute left-3 text-gray-500">
+            <MdOutlineMail size={18}/>
           </span>        
         <input 
           type="email" 
@@ -67,7 +62,7 @@ const LoginForm = () => {
           {...register("email", { 
             required: "Email is required" 
           })}
-          className={`form-input shadow appearance-none border rounded w-full ps-8 py-2 placeholder-secondaryColor text-drakColor focus:outline-none focus:ring-2 focus:ring-primaryColor
+          className={`form-input appearance-none border rounded w-full ps-8 py-2 bg-gray-100 placeholder-gray-500 text-xs  text-drakColor focus:outline-none focus:ring-1 focus:ring-primaryColor
              ${errors.email ? 'border-red-500' : ''}`}
 
         />
@@ -76,24 +71,25 @@ const LoginForm = () => {
         </label>
       </div>
       <div className='mb-4'>
-        <label className=' block text-sm mb-2'>
+        <label className=' block text-xs mb-2'>
         <span className="font-semibold">Password</span> 
-        <div className='relative flex items-center'>
-        <span className="absolute left-3 text-secondaryColor">
-          <BiLockOpenAlt size={20} />
+        <div className='relative flex items-center mt-2'>
+        <span className="absolute left-3 text-gray-500">
+          <BiLockOpenAlt size={18} />
         </span>
         <input 
         type="password" 
         placeholder="Password" 
         {...register("password", {
+          required: "Password is required", 
           minLength: {
             value: 6,  // Minimum password length
-            message: "Password must be at least 6 characters long"
+            message: "Password must be at least 6 characters long",
           }
         }
 
         )}
-        className={`form-input shadow appearance-none border rounded w-full ps-8 py-2 placeholder-secondaryColor text-drakColor focus:outline-none focus:ring-2 focus:ring-primaryColor 
+        className={`form-input appearance-none border rounded w-full ps-8 py-2 bg-gray-100 placeholder-gray-500 text-xs  text-drakColor focus:outline-none focus:ring-1 focus:ring-primaryColor 
           ${errors.password ? 'border-red-500' : ''}`}
 
         />
@@ -101,22 +97,21 @@ const LoginForm = () => {
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
         </label>
       </div>
-      <div className='flex items-center justify-between mb-4'>
+      <div className='flex items-center justify-between gap-8 mb-4'>
         <label className='inline-flex items-center'>
           <input
            type="checkbox"
-           className='form-checkbox h-4 w-4 text-purple-600'
+           className='form-checkbox h-3 w-3 text-purple-600'
            />
-           <span className='ml-2 text-gray-700'>Remember me</span>
+           <span className='ml-1 text-gray-700 text-xs font-semibold'>Remember me</span>
         </label>
-        <a href="#" className='text-sm text-purple-600 hover:text-purple-800'>
+        <a href="#" className='text-xs text-purple-600 hover:text-purple-800 font-semibold'>
           Forget Password
         </a>
       </div>
       <button
-        disabled={loading}
         type="submit"
-        className="w-full text-white bg-primaryColor py-2 px-4 rounded font-bold hover:bg-primaryColor_2">
+        className="w-full text-white bg-primaryColor mt-2 py-2 px-4 rounded font-bold hover:bg-primaryColor_2">
               Login
           </button>
       </form>
