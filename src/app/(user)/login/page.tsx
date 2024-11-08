@@ -2,7 +2,7 @@ import Image from "next/image"
 import LoginForm from "./LoginForm"
 import loginImage from "../../../../public/loginImage.png"
 import A from "../../../../public/A.png"
-import BackButton from "./BackButton"
+import BackButton from "@/components/Buttons"
 
 const LoginPage = () => {
 

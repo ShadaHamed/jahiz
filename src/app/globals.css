@@ -11,8 +11,6 @@
   --darkColor: #333333 ;
 }
 
-
-
 /* Customize the background color and progress bar of the toast */
 .toast-container .Toastify__toast {
   background-color: var(--primaryColor_2);
@@ -22,4 +20,5 @@
 .toast-container .Toastify__progress-bar {
   background-color: var(--secondaryColor);
 }
+
 

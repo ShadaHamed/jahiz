@@ -1,0 +1,19 @@
+/* Map background color to blend better */
+.leaflet-container {
+    background-color: #1f1f1f;
+  }
+  
+  /* Tooltip styling to match the dashboard */
+  .custom-tooltip .tooltip-content {
+    background-color: rgba(34, 34, 34, 0.9); /* Dark background */
+    color: #fff; /* White text */
+    font-size: 0.875rem; /* Font size similar to the dashboard */
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .custom-tooltip .leaflet-tooltip {
+    border: none;
+    box-shadow: none;
+  }
+  

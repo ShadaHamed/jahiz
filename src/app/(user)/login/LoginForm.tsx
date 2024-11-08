@@ -54,7 +54,7 @@ const LoginForm = () => {
         <span className="font-semibold">Email</span> 
         <div className="relative flex items-center mt-2">
           <span className="absolute left-3 text-gray-500">
-            <MdOutlineMail size={18}/>
+            <MdOutlineMail size={18} />
           </span>        
         <input 
           type="email" 
