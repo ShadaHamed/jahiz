@@ -1,4 +1,3 @@
-import { GeoJSON } from 'react-leaflet';
 import { FeatureCollection } from 'geojson';
 
 export const cityData: FeatureCollection = {

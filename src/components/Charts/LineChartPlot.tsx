@@ -77,11 +77,8 @@ const LineChartPlot: React.FC<BarChartProps>= ({ labels, data1, data2 }) => {
     },
   };
 
-  return (
-    <div className="w-full h-[400px] bg-white border rounded-lg p-4">
-      <Line data={data} options={options} />
-    </div>
-  );
+  return <Line data={data} options={options} />
+ 
 };
 
 export default LineChartPlot;

@@ -6,7 +6,6 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-  TooltipItem,
   ChartOptions,
 } from 'chart.js';
 import styles from './PieChart.module.css';
@@ -47,6 +46,7 @@ const PieChartPlot = () => {
     },
     cutout: '60%',
     maintainAspectRatio: false, // This helps with responsive sizing
+    responsive: true
   };
   
 

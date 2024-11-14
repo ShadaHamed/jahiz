@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
+// import { MapProvider } from "@/components/MapContext";
 
 
 const geistSans = localFont({
@@ -31,13 +32,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex min-h-screen">
-        <ToastContainer className="toast-container"  position='top-center' />
-        <Sidebar/> 
-        <main  className="flex-1 min-h-screen">
-          {children}
-        </main>
-        </div>
+      <div className="flex h-screen">
+            {/* <Header /> */}
+            <div className="flex flex-1">
+              <Sidebar />
+              
+              <main className="flex-1 overflow-y-auto">
+                {children}
+              </main>
+            </div>
+          </div>
       </body>
     </html>
   );

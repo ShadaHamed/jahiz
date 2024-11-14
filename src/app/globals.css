@@ -11,7 +11,7 @@
   --darkColor: #333333 ;
 }
 
-/* Customize the background color and progress bar of the toast */
+/* Customize the background color and progress bar of the toast
 .toast-container .Toastify__toast {
   background-color: var(--primaryColor_2);
   color: #fff;
@@ -19,6 +19,8 @@
 
 .toast-container .Toastify__progress-bar {
   background-color: var(--secondaryColor);
+} */
+
+.react-datepicker {
+  transform: translateX(-100px); /* Adjust to move left by 10px */
 }
-
-
