@@ -37,6 +37,7 @@ const DateBox = () => {
       />
     </div>
   ));
+  CustomInput.displayName = "CustomInput";
 
   const formatDateRange = (start: Date | undefined, end: Date | undefined) => {
     if (start && end) {

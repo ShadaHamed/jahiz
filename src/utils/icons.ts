@@ -1,5 +1,3 @@
-import { PiBankLight } from "react-icons/pi";
-import { FaArrowDown, FaArrowUp  } from "react-icons/fa6";
 import { BiSolidDollarCircle } from "react-icons/bi";
 import { MdPeopleAlt } from "react-icons/md";
 import { AiFillShopping } from "react-icons/ai";

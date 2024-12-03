@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 // import 'react-toastify/dist/ReactToastify.css';
 // import { ToastContainer } from 'react-toastify';
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
-import Navbar from "@/components/Navbar";
-// import { MapProvider } from "@/components/MapContext";
-
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import Header from "@/components/header";
+import { AuthProvider } from "./(user)/AuthContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,20 +15,22 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
   return (
     <html lang="en">
       <body>
-      <div className="flex h-screen">
-            {/* <Header /> */}
+      <AuthProvider>
+      <div className="flex flex-col h-screen">
             <div className="flex flex-1">
               <Sidebar />
               
               <main className="flex-1 overflow-y-auto">
-                {children}
+              <Header/>
+              <div>{children}</div>
               </main>
             </div>
           </div>
+        </AuthProvider>
       </body>
     </html>
   );

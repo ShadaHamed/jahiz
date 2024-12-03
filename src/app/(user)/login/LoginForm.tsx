@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MdOutlineMail } from "react-icons/md";
 import { BiLockOpenAlt } from "react-icons/bi";
-import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../AuthContext';
+import { AxiosError } from 'axios';
 
 type LoginFormInputs = {
   email: string;
@@ -14,6 +14,7 @@ type LoginFormInputs = {
 
 const LoginForm = () => {
     const router = useRouter();
+    const { login } = useAuth();
 
     const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm<LoginFormInputs>({
       mode: 'onSubmit', // Validation will trigger only after form submit;
@@ -25,13 +26,18 @@ const LoginForm = () => {
           clearErrors(); // Clear errors before submission
 
           //stimulate API request
-          // await axios.post(`${DOMAIN}/api/login`, { email, password });
+          await login(data.email, data.password);
 
           router.replace('/');
-          toast.success("Login successful");
           router.refresh();
-        } catch (error:any) {
-          const apiErrors = error?.response?.data?.errors;
+          
+        } catch (err) {
+          const error = err as AxiosError<{
+            errors?: { field: keyof LoginFormInputs; message: string }[];
+            message?: string;
+          }>;
+          
+          const apiErrors = (error as any)?.response?.data?.errors;
 
           if (apiErrors && Array.isArray(apiErrors)) {
             apiErrors.forEach((apiError: { field: keyof LoginFormInputs; message: string }) => {
@@ -41,7 +47,10 @@ const LoginForm = () => {
                 });
             });
         } else {
-          toast.error(error?.response?.data.message);
+          setError("email", {
+            type: 'server',
+            message: error.response?.data?.message || "An unexpected error occurred",
+          });
         }
         }
         
@@ -111,7 +120,8 @@ const LoginForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full text-white bg-primaryColor mt-2 py-2 px-4 rounded font-bold hover:bg-primaryColor_2">
+        className="w-full text-white bg-primaryColor mt-2 py-2 px-4 rounded font-bold hover:bg-primaryColor_2"
+        >
               Login
           </button>
       </form>

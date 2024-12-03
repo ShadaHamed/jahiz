@@ -52,13 +52,4 @@ export const cardData = [
   barData1 : [10000, 15000, 20000, 25000, 30000, 20000, 10000, 10000, 15000, 20000, 25000, 30000, 20000],
   barData2 : [15000, 10000, 25000, 20000, 35000, 30000, 15000, 15000, 10000, 25000, 20000, 35000, 10000]
  }
-
-//  export const cityData = [
-//   { name: 'Riyadh', lat: 24.7136, lng: 46.6753, orderPercentage: 80 },
-//   { name: 'Dubai', lat: 25.276987, lng: 55.296249, orderPercentage: 50 },
-//   { name: 'Tehran', lat: 35.6892, lng: 51.389, orderPercentage: 30 },
-//   { name: 'Baghdad', lat: 33.3152, lng: 44.3661, orderPercentage: 10 },
-//   { name: 'Cairo', lat: 30.0444, lng: 31.2357, orderPercentage: 60 },
-//   { name: 'Istanbul', lat: 41.0082, lng: 28.9784, orderPercentage: 20 },
-//   { name: 'Amman', lat: 31.9539, lng: 35.9106, orderPercentage: 90 }
-// ];
+ 

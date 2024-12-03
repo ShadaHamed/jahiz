@@ -1,0 +1,87 @@
+{
+  "branches": [
+    {
+      "branchID": "1",
+      "branch_Name": "Branch_1",
+      "location": "Location_1",
+      "status": "active",
+      "id": "d4d5"
+    },
+    {
+      "branchID": 2,
+      "branch_Name": "Branch_2",
+      "location": "Location_2",
+      "status": "active",
+      "id": "3e1b"
+    },
+    {
+      "branchID": 3,
+      "branch_Name": "Branch_3",
+      "location": "Location_3",
+      "status": "in-active",
+      "id": "85d5"
+    },
+    {
+      "id": "3515",
+      "branchID": 4,
+      "status": "active",
+      "branch_Name": "Branch_4",
+      "location": "Location_4"
+    }
+  ],
+  "users": [
+    {
+      "name": {
+        "en": "John Doe",
+        "ar": "جون دو"
+      },
+      "phone_number": "00966558864248",
+      "address": "Main St.",
+      "email": "john.doe1@example.com",
+      "password": "securepassword",
+      "password_confirmation": "securepassword",
+      "role": 2,
+      "id": "0022"
+    },
+    {
+      "name": {
+        "en": "Mike Doe",
+        "ar": "مايك دو"
+      },
+      "phone_number": "00966558863135",
+      "address": "Down Town",
+      "email": "Mike.doe1@example.com",
+      "password": "securepassword",
+      "password_confirmation": "securepassword",
+      "role": 2,
+      "id": "c4f6"
+    },
+    {
+      "name": {
+        "en": "Mike Doe",
+        "ar": "مايك دو"
+      },
+      "phone_number": "00966558863135",
+      "address": "Down Town",
+      "email": "Mike.doe1@example.com",
+      "password": "securepassword",
+      "password_confirmation": "securepassword",
+      "role": 2,
+      "id": "wert"
+    }
+  ],
+  "categories": [
+    {
+      "id": "123",
+      "name": "Food"
+    },
+    {
+      "id": "133",
+      "name": "Drinks"
+    },
+    {
+      "id": "153",
+      "name": "Snacks"
+    }
+  ]
+}

@@ -1,38 +1,32 @@
 'use client' 
 
 import Link from 'next/link';
-import { IoMdArrowDropdown, IoMdCart } from "react-icons/io";
+import {  IoMdCart } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
-import { AiFillShopping } from "react-icons/ai";
 import { FaChartBar } from "react-icons/fa";
-import { FaMapLocation } from "react-icons/fa6";
-import { ShortArrowBackButton, ShortArrowForwardButton } from "@/components/Buttons";
-import { useEffect, useState } from 'react';
-import {users} from "@/utils/data"
-import Image from "next/image";
+import { useState } from 'react';
+import Image from "next/image"
 import profile from '../../public/profile.png';
 import { MdMenu, MdClose, MdPeopleAlt, MdLogout, MdArrowBack, MdArrowForward } from "react-icons/md";
-
+import { useAuth } from '@/app/(user)/AuthContext';
+import { BiSolidCategoryAlt } from "react-icons/bi";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);       // Controls mobile visibility
   const [isCollapsed, setIsCollapsed] = useState(false); // Controls collapsible display
-  const user = users.find(user => user.user_id === 1);
-  
+  const { isAuthenticated, user, logout } = useAuth();
+
   const toggleSidebar = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevent any default behavior that may interfere
     e.stopPropagation(); // Prevent event from bubbling up and triggering unwanted actions
     setIsCollapsed(!isCollapsed);
   };
 
-  const toggleMobileSidebar = () => {
-    setIsOpen((prev) => (!prev))
-  }
   return (
     <>
       {/* Menu Icon for mobile */}
       <button 
-        className="fixed top-4 left-8 md:hidden p-2 cursor-pointer"
+        className="fixed top-4 left-8 md:hidden p-2 cursor-pointer z-10"
         onClick={() => setIsOpen(true)}
       >
         {/* Menu icon */}
@@ -81,24 +75,24 @@ function Sidebar() {
          
            
 
-          <Link href="/marketplace">
+          <Link href="/branches">
             <div className={`flex items-center p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}
                  onClick={() => setIsOpen(false)}>
                 <IoMdCart />
-              {!isCollapsed && <span className="ml-2"> Marketplace </span>}
+              {!isCollapsed && <span className="ml-2"> Branches </span>}
             </div>
           </Link>
           
 
-          <Link href="#">
+          <Link href="/categories">
             <div className={`flex items-center p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}
                 onClick={() => setIsOpen(false)}>
-              <AiFillShopping />
-              {!isCollapsed && <span className="ml-2"> Orders </span>}
+              <BiSolidCategoryAlt />
+              {!isCollapsed && <span className="ml-2"> Categories </span>}
             </div>
           </Link>
 
-          <Link href="#">
+          <Link href="/customers">
             <div className={`flex items-center p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}
                 onClick={() => setIsOpen(false)}>
                 <MdPeopleAlt />
@@ -108,30 +102,31 @@ function Sidebar() {
 
           <h4 className={`text-gray-700 ${isCollapsed ? 'hidden' : ''}`}>PAYMENTS</h4>
 
-          <Link href="#">
+          {user ? <Link href="#">
             <div className={`flex items-center p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}
               onClick={() => setIsOpen(false)}>
               <FaChartBar />
               {!isCollapsed && <span className="ml-2"> Ladger </span>}
             </div>
-          </Link>
+          </Link> : ""}
 
         </div>
 
-        <div className={`flex text-xs gap-2 mt-20 p-2 ${isCollapsed ? 'text-center' : ''}`}>
-            <Image src= {user?.photo || profile} alt="User Profile" width={35} height={35}/>
+        {isAuthenticated && (<div className={`flex text-xs gap-2 mt-20 p-2 ${isCollapsed ? 'text-center' : ''}`}>
+            <Image src= {profile} alt="User Profile" width={35} height={35}/>
             <div className={`flex flex-col gap-2 ${isCollapsed ? 'hidden' : ''}`}>
-                <span className='font-bold'>{user?.user_name}</span>
-                <span className='text-gray-600'>{user?.role}</span>
+                <span className='font-bold'>{user?.name.en}</span>
+                <span className='text-gray-600'>Admin Manager</span>
             </div>
-        </div>
+        </div>)}
 
-        <div className={`flex items-center mt-15 mx-4 p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}>
-        <button className='flex'>
+        {isAuthenticated && (<div className={`flex items-center mt-15 mx-4 p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}>
+        <button className='flex'
+                onClick={logout}>
           <MdLogout />
           {!isCollapsed && <span className="ml-2 text-sm"> Logout </span>}
         </button>
-        </div>
+        </div>)}
         
 
        

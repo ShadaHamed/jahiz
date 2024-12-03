@@ -7,12 +7,11 @@ import Card from "@/components/Card";
 import PieChartPlot from "@/components/Charts/pieChart/PieChartPlot";
 import LineChartPlot from "@/components/Charts/LineChartPlot";
 import { cardData, barCharthData } from "@/utils/data";
-import { iconsCollection } from "@/utils/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import DateBox from "@/components/DateBox";
 // import Map from "@/components/Map"
-const Map = dynamic(() => import('@/components/Map'), { ssr: false });
+const Map = dynamic(() => import('@/components/map/Map'), { ssr: false });
 
 const AdminDashboard = () => {
   const [barChart, setBarChart] = useState(true);

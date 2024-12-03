@@ -4,6 +4,13 @@ import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { cityData } from "@/utils/cities";
+import {Feature, Geometry} from "geojson"
+import { Layer } from 'leaflet';
+
+type RegionProperties = {
+  density: number;
+  name: string;
+};
 
 // Helper function to get color based on density
 const getColor = (density:number) => {
@@ -14,7 +21,16 @@ const getColor = (density:number) => {
 };
 
 // Function to style each region based on its density
-const getRegionStyle = (feature:any) => {
+const getRegionStyle = (feature?: Feature<Geometry, RegionProperties>) => {
+  if (!feature || !feature.properties) {
+    // Provide a default style if feature or properties are undefined
+    return {
+      fillColor: "gray",
+      weight: 1,
+      color: "white",
+      fillOpacity: 0.6,
+    };
+  }
   const density = feature.properties.density;
   return {
     fillColor: getColor(density),
@@ -25,7 +41,11 @@ const getRegionStyle = (feature:any) => {
 };
 
 // Function to handle each feature (adds tooltip)
-const onEachFeature = (feature:any, layer:any) => {
+const onEachFeature = (feature:Feature<Geometry, RegionProperties> | undefined, layer: Layer) => {
+
+  if (!feature || !feature.properties) {
+    return; 
+  }
   const density = feature.properties.density;
   const color = getColor(density);
 
