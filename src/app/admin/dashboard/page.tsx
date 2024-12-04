@@ -17,14 +17,16 @@ const AdminDashboard = () => {
   const [barChart, setBarChart] = useState(true);
 
   return (
-    <div className="container p-6 space-y-6">
+    <div className="container p-6 space-y-6 ">
       {/* Page Title */}
-      <header className="relative flex items-center justify-center md:justify-between">
-        <h2 className="text-2xl font-bold ">Dashboard</h2>
-        <div className="absolute right-4">
+      <h2 className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-2xl mx-auto  md:left-auto md:transform-none ">
+          Dashboard
+      </h2>
+      {/* <div className="relative w-96 items-center justify-center md:justify-start"> */}
+        <div className="flex justify-end ">
           <DateBox />
         </div>
-      </header>
+     
 
       {/* Cards Section */}
       <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center">

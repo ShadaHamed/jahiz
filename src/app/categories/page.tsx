@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Category } from '@/utils/types';
 import categoriesRepository from '@/apiCalls/categoriesRepository';
 import SearchBox from '@/components/table/SearchBox';
+import Image from 'next/image';
+
 
 const CategoriesPage = () => {
     const [categories, setCategories] = useState([] as Category[]);
@@ -35,8 +37,8 @@ const CategoriesPage = () => {
         <div className="grid sm:grid-col-2 md:grid-cols-4 gap-4 p-3" ref={contentRef}>
             {categories.map((category, index) => (
                 <div key={index} className="flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg my-6 w-50 h-[70%] text-sm">
-                <div className="m-2.5 overflow-hidden rounded-md h-1/2 flex justify-center items-center">
-                  <img className="w-full h-full object-cover" src="https://docs.material-tailwind.com/img/team-3.jpg" alt="profile-picture" />
+                <div className="m-2.5 overflow-hidden rounded-md h-full flex justify-center items-center">
+                <Image className="w-full h-full object-cover" width={300} height={500} src={`/images/${category.name}.jpg`} alt="picture" />
                 </div>
                 <div className="p-4 text-center">
                   <h4 className="mb-1 text-xl font-semibold text-slate-800">
