@@ -11,7 +11,7 @@ import { Branch } from '@/utils/types';
 const BranchPage = async () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const branches: Branch[] = await branchRepository.getAllBranches();
-
+  console.log('branches', branches)
   return (
     <GlobalProvider>
       <div className='overflow-hidden'>

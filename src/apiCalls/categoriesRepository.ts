@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Category } from '@/utils/types';
  
-const BASE_URL = 'http://localhost:3001/categories';
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-netlify-deployment-url.netlify.app/.netlify/functions/categories' 
+  : 'http://localhost:8888/.netlify/functions/categories';
 
   class BranchRepository {
     // Fetch all branches

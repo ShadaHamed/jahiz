@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { User } from '@/utils/types';
- 
-const BASE_URL = 'http://localhost:3001/users';
+
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-netlify-deployment-url.netlify.app/.netlify/functions/users' 
+  : 'http://localhost:8888/.netlify/functions/users';
 
   class UserRepository {
     // Fetch all branches

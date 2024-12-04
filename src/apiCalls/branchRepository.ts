@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { Branch } from '@/utils/types';
  
-const BASE_URL = 'http://localhost:3001/branches';
-
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://your-netlify-deployment-url.netlify.app/.netlify/functions/branches' 
+  : 'http://localhost:8888/.netlify/functions/branches';
+  
   class BranchRepository {
     // Fetch all branches
     async getAllBranches(): Promise<Branch[]> {
