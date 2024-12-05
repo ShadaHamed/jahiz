@@ -4,14 +4,29 @@ import branchRepository from '@/apiCalls/branchRepository';
 import Link from 'next/link';
 import BranchTable from './BranchTable';
 import { GlobalProvider } from './Context';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TableTools from '@/components/table/TableTools';
 import { Branch } from '@/utils/types';
 
-const BranchPage = async () => {
+const BranchPage = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const branches: Branch[] = await branchRepository.getAllBranches();
-  console.log('branches', branches)
+  const [branches, setBranches] = useState([] as Branch[])
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await branchRepository.getAllBranches();
+        console.log(data)
+        setBranches(data);
+        
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
+      } 
+    };
+
+    fetchUsers();
+    
+  }, []); 
+
   return (
     <GlobalProvider>
       <div className='overflow-hidden'>
