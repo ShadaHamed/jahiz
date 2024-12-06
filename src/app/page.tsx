@@ -4,18 +4,10 @@ const Home = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <h1>{t("welcome")}</h1>
-
-      <p>
-        <a href="/">{t("home")}</a>
-      </p>
-
-      <p>
-        <a href="/about">{t("about")}</a>
-      </p>
+    <div className=' m-4 flex items-center justify-center md:justify-between'>
+      <h1 className='absolute top-4 text-2xl font-bold mx-auto'>Home Page</h1>
     </div>
-  );
-};
+  )
+}
 
 export default Home;

@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import Sidebar from "@/components/Sidebar";
+import Header from "@/components/header";
+import { AuthProvider } from "./(user)/AuthContext";
 
 export const metadata: Metadata = {
   title: "Jahiz Plus",
@@ -24,14 +15,21 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
   return (
     <html lang="en">
       <body>
-        <ToastContainer className="toast-container"  position='top-center' />
-        <main>
-          {children}
-        </main>
+      <AuthProvider>
+      <div className="relative flex h-screen">
+              
+              <Sidebar />
+              
+              <main className="flex-1 overflow-y-auto transition-all duration-300">
+              <Header/>
+              <div>{children}</div>
+              </main>
+            </div>
+        </AuthProvider>
       </body>
     </html>
   );
