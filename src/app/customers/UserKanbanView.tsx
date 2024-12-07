@@ -1,7 +1,7 @@
 'use client';
 
 import { User } from '@/utils/types';
-import userProfileIcon from '../../../public/userProfileIcon.png';
+// import userProfileIcon from '../../../public/userProfileIcon.png';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import userRepository from '@/apiCalls/userRepository';
@@ -126,7 +126,7 @@ const UserKanbanView: React.FC<UserKanbanViewProps> = ({ users, onDelete }) => {
                             </div>
                             <div className='w-1/4'>
                                 <Image
-                                src={userProfileIcon}
+                                src="userProfileIcon.png"
                                 alt="image profile"
                                 className="w-20 h-19 bg-gray-100 rounded-full shadow-lg p-2"
                             />

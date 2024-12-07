@@ -6,7 +6,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaChartBar } from "react-icons/fa";
 import { useState } from 'react';
 import Image from "next/image"
-import profile from '../../public/profile.png';
+// import profile from '../../public/profile.png';
 import { MdMenu, MdClose, MdPeopleAlt, MdLogout, MdArrowBack, MdArrowForward } from "react-icons/md";
 import { useAuth } from '@/app/(user)/AuthContext';
 import { BiSolidCategoryAlt } from "react-icons/bi";
@@ -113,7 +113,7 @@ function Sidebar() {
         </div>
 
         {isAuthenticated && (<div className={`flex text-xs gap-2 mt-20 p-2 ${isCollapsed ? 'text-center' : ''}`}>
-            <Image src= {profile} alt="User Profile" width={35} height={35}/>
+            <Image src="profile.png" alt="User Profile" width={35} height={35}/>
             <div className={`flex flex-col gap-2 ${isCollapsed ? 'hidden' : ''}`}>
                 <span className='font-bold'>{user?.name.en}</span>
                 <span className='text-gray-600'>Admin Manager</span>

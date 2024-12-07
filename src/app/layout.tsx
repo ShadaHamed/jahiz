@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
       <AuthProvider>
-      <div className="relative flex h-screen">
+        <div className="relative flex h-screen">
               
               <Sidebar />
               

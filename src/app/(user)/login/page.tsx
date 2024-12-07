@@ -1,7 +1,7 @@
 import Image from "next/image"
 import LoginForm from "./LoginForm"
-import loginImage from "../../../../public/loginImage.png"
-import A from "../../../../public/A.png"
+// import loginImage from "../../../../public/loginImage.png"
+// import A from "../../../../public/A.png"
 import BackButton from "@/components/Buttons"
 
 const LoginPage = () => {
@@ -17,7 +17,7 @@ const LoginPage = () => {
             </div>
             <div className="py-6 w-full">
             <div className="my-4 rounded flex justify-center items-center">
-              <Image src={A} alt="logo" height={50} width={50}/>
+              <Image src="/A.png" alt="logo" height={50} width={50}/>
             </div>
               <h2 className="text-2xl text-center font-bold mb-2">Welcom Back!</h2>
               <p className="mb-6 text-center text-xs">Please Sign in to continue</p>
@@ -34,7 +34,7 @@ const LoginPage = () => {
            {/* Right side */}
           <div className="hidden md:flex w-2/3 bg-[#f5f4f7] items-center justify-center rounded-e-lg">
           <Image
-              src={loginImage}
+              src="c/loginImage.png"
               alt="Login Illustration"
               width={400}
               height={300}

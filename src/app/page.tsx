@@ -1,7 +1,7 @@
-import { useTranslation } from "next-i18next";
+// import { useTranslation } from "next-i18next";
 
 const Home = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <div className=' m-4 flex items-center justify-center md:justify-between'>
