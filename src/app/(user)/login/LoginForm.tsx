@@ -28,7 +28,7 @@ const LoginForm = () => {
           //stimulate API request
           await login(data.email, data.password);
 
-          router.replace('/');
+          router.replace('/admin/dashboard');
           router.refresh();
           
         } catch (err) {

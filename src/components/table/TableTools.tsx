@@ -1,4 +1,4 @@
-import FilterBox from './FilterBox';
+// import FilterBox from './FilterBox';
 import SearchBox from './SearchBox';
 import ExportPDF from './ExportPDF';
 
@@ -18,7 +18,7 @@ const TableTools = ({data, contentRef}: TableToolsProps) => {
 
       {/* Filter Box */}
       <div className=''>
-        <FilterBox data={data} />
+        {/* <FilterBox data={data} /> */}
       </div>
 
       {/* Export PDF */}
