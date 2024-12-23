@@ -11,6 +11,10 @@
   --darkColor: #333333 ;
 }
 
+body {
+  font-family: Tajawal;
+}
+
 /* Customize the background color and progress bar of the toast
 .toast-container .Toastify__toast {
   background-color: var(--primaryColor_2);
@@ -21,6 +25,3 @@
   background-color: var(--secondaryColor);
 } */
 
-.react-datepicker {
-  transform: translateX(-100px); /* Adjust to move left by 10px */
-}

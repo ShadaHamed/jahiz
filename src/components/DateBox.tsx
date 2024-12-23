@@ -33,7 +33,7 @@ const DateBox = () => {
           // Toggle the open state when the arrow is clicked
           setIsOpen(prev => !prev);
         }}
-        className="md:text-white sm:text-black font-bold cursor-pointer"
+        className="hidden md:flex md:text-white sm:text-black font-bold cursor-pointer"
       />
     </div>
   ));
@@ -49,11 +49,14 @@ const DateBox = () => {
   };
 
   return (
-    <div className="flex items-center md:bg-gray-200 rounded-lg p-2 h-10">
+    <div className="flex items-center md:bg-primaryColor rounded-lg p-2 h-10">
       <div className="flex items-center">
-        <label className="flex items-center md:text-gray-400 sm:text-black text-sm mb-2">
-          <MdOutlineDateRange size={25}/>
-          <span className="hidden md:block">Time period:</span>
+        <label className="flex items-center md:text-gray-300 sm:text-black text-sm mb-2">
+          <MdOutlineDateRange 
+            size={40} 
+            onClick={() => { setIsOpen(prev => !prev); }}
+            className="text-white sm:bg-primaryColor md:bg-inherit rounded-md p-2 mt-2 md:mt-0 cursor-pointer"/>
+          <span className="hidden md:block font-semibold">Time period:</span>
           <span className="text-white text-sm ms-2 hidden md:block">
             {formatDateRange(startDate, endDate)}
           </span>
@@ -75,7 +78,7 @@ const DateBox = () => {
           open={isOpen}  // Manually control calendar visibility
           onClickOutside={() => setIsOpen(false)}  // Close calendar when clicking outside
           popperClassName="datepicker-left-adjust" // Apply the custom CSS class
-
+          popperPlacement="bottom-start"
         />
       </div>
     </div>

@@ -19,11 +19,11 @@ const AdminDashboard = () => {
   return (
     <div className="container p-6 space-y-6 ">
       {/* Page Title */}
-      <h2 className="absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-2xl mx-auto  md:left-auto md:transform-none ">
+      <h2 className="font-bold text-2xl mx-auto text-center lg:text-start lg:text-3xl">
           Dashboard
       </h2>
       {/* <div className="relative w-96 items-center justify-center md:justify-start"> */}
-        <div className="flex justify-end ">
+        <div className="flex justify-end relative">
           <DateBox />
         </div>
      

@@ -6,5 +6,8 @@ const nextConfig: NextConfig = {
     i18n,
   /* config options here */
 };
+module.exports = {
+  reactStrictMode: false,
+};
 
 export default nextConfig;

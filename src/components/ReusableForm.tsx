@@ -1,28 +1,24 @@
 import React from 'react';
 import { useForm, Controller, DefaultValues, Path } from 'react-hook-form';
-
-interface Field {
-  name: string;
-  label: string;
-  type: string;
-  placeholder?: string;
-  options?: { label: string; value: string | number }[];
-  //@ts-ignore
-  validation?: Record<string, any>;
-}
+import { redirect } from 'next/navigation';
+import { Field } from '@/utils/types';
 
 interface ReusableFormProps<T> {
   fields: Field[];
+  heading: string;
   onSubmit: (data: T) => void;
   initialValues?: DefaultValues<T>; // Ensure the type is compatible with useForm
   submitButtonLabel: string;
+  backNavigation: string;
 }
 //@ts-ignore
 const ReusableForm = <T extends Record<string, any>>({
   fields,
+  heading, 
   onSubmit,
   initialValues = {} as DefaultValues<T>, // Explicitly cast to DefaultValues<T>
   submitButtonLabel = 'Submit',
+  backNavigation,
 }: ReusableFormProps<T>) => {
   const {
     handleSubmit,
@@ -33,13 +29,19 @@ const ReusableForm = <T extends Record<string, any>>({
   
   return (
     <form 
-      onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto p-6 bg-white border shadow-md rounded-md space-y-4">
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-lg mx-auto pb-6  border shadow-lg rounded-lg space-y-6"
+    >
+    {/* heading */}
+    <h1 className="bg-primaryColor text-white text-2xl font-bold p-6 rounded-t-lg text-center">
+      {heading}
+    </h1>
   {fields.map((field) => (
-    <div key={field.name} className="flex flex-col space-y-2">
-      <div className="flex items-center gap-x-4">
+    <div key={field.name} className="space-y-1 mx-8">
+      <div className="flex flex-col gap-y-1 w-full mt-2">
         <label
           htmlFor={field.name}
-          className="text-xs font-medium text-gray-700 w-1/4" // Optional fixed width for alignment
+          className="text-xs font-semibold text-gray-700" 
         >
           {field.label}
         </label>
@@ -53,12 +55,12 @@ const ReusableForm = <T extends Record<string, any>>({
               <select
                 {...controllerField}
                 id={field.name}
-                className="flex-1 p-3 rounded-md border border-gray-300 text-sm bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring-primaryColor "
+                className="w-full p-2 rounded-md border border-gray-300 bg-gray-50 text-gray-700 text-xs md:text-sm focus:outline-none  transition"
               >
-                <option value="" >Select {field.label}</option>
+                <option value="" disabled>Select {field.label}</option>
                 {field.options?.map((option) => (
                   <option key={option.value} value={option.value}
-                          className='hover:bg-primaryColor hover:text-white appearance-none'>
+                          className='hover:bg-primaryColor hover:text-white text-xs'>
                     {option.label}
                   </option>
                 ))}
@@ -76,7 +78,7 @@ const ReusableForm = <T extends Record<string, any>>({
                 type={field.type}
                 id={field.name}
                 placeholder={field.placeholder}
-                className="flex-1 form-input appearance-none border border-gray-300 rounded-md px-3 py-2 text-sm shadow-sm bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring-primaryColor focus:border-primaryColor"
+                className="w-full p-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-xs md:text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primaryColor focus:border-primaryColor transition"
               />
             )}
           />
@@ -91,13 +93,22 @@ const ReusableForm = <T extends Record<string, any>>({
       )}
     </div>
   ))}
+  <div className='flex flex-col-reverse md:flex-row items-center justify-between mx-8'>
+    <button 
+      type='button'
+      onClick={() => redirect(backNavigation)}
+      className='py-3 px-3 w-full md:w-[90px] bg-white text-gray-600 text-xs uppercase rounded-xl font-medium cursor-pointer border-2 border-slate-300 hover:bg-gray-200 hover:text-gray-500 transition duration-200 ease-in-out'>
+      Cancel
+    </button>
 
-  <button
-    type="submit"
-    className="w-full py-3 px-4 bg-primaryColor text-white rounded-md font-medium text-sm shadow-md hover:bg-primaryColor_2 focus:ring-2 focus:ring-primaryColor focus:outline-none"
-  >
-    {submitButtonLabel}
-  </button>
+    <button
+      type="submit"
+      className="py-3 px-6 w-full md:w-auto bg-primaryColor text-white text-xs uppercase rounded-xl font-medium cursor-pointer shadow-lg hover:bg-primaryColor_2 focus:ring-2 focus:ring-primaryColor focus:outline-none transition">
+      {submitButtonLabel}
+    </button>
+
+  </div>
+  
 </form>
 
   );

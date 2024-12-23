@@ -1,34 +1,30 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchBox = () => {
-  const [searchText, setSearchText] = useState("");
-  const [isInputVisible, setInputVisible] = useState(false);
   const router = useRouter();
+  const [searchText, setSearchText] = useState("");
+  const searchParams = useSearchParams();
+  const [isInputVisible, setInputVisible] = useState(false);
 
   useEffect(() => {
     setSearchText(new URLSearchParams(window.location.search).get('query') || '');
   }, []);
-
-  const handleClick = () => {
-    setInputVisible(!isInputVisible); // Toggle input visibility on small screens
-  };
-
+console.log('search text' ,searchText)
   const formSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     const currentUrl = window.location.pathname;
     const params = new URLSearchParams(window.location.search);
-
     if (searchText.trim() === '') {
       // Clear query parameter
       params.delete('query');
     } else {
       // Add or update query parameter
-      params.set('query', encodeURIComponent(searchText));
+      params.set('query', searchText.trim());
     }
 
     // Update the URL
@@ -39,15 +35,15 @@ const SearchBox = () => {
     <div className="relative">
       {/* Mobile Search Icon */}
       <div 
-        className="block md:hidden text-gray-900 cursor-pointer"
-        onClick={handleClick}
+        className="block lg:hidden text-gray-900 cursor-pointer"
+        onClick={() => setInputVisible(!isInputVisible)}
       >
-        <FaSearch size={20} />
+        <FaSearch size={40} className='text-white border rounded-md p-2 bg-primaryColor'/>
       </div>
 
       {/* Mobile Input Box */}
       {isInputVisible && (
-        <div className="md:hidden absolute mb-3 w-96 z-10 shadow-lg p-2 rounded-md">
+        <div className="lg:hidden absolute mb-3 w-96 z-10 shadow-lg p-2 rounded-md select-text">
           <form className="relative w-full bg-none" onSubmit={formSubmitHandler}>
             <input
               type="text"
@@ -57,7 +53,7 @@ const SearchBox = () => {
               onChange={(e) => setSearchText(e.target.value)}
             />
             <div className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500">
-              <FaSearch size={18} />
+              <FaSearch size={18} className='text-primaryColor'/>
             </div>
           </form>
         </div>
@@ -65,7 +61,7 @@ const SearchBox = () => {
 
       {/* Desktop Search Box */}
       <form
-        className="hidden md:flex justify-between items-center w-96"
+        className="hidden lg:flex justify-between items-center w-96"
         onSubmit={formSubmitHandler}
       >
         <div className="relative w-full">

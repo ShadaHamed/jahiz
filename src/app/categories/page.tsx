@@ -1,21 +1,21 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, {Suspense, useEffect, useRef, useState } from 'react';
 import { Category } from '@/utils/types';
 import categoriesRepository from '@/apiCalls/categoriesRepository';
 import SearchBox from '@/components/table/SearchBox';
-import Image from 'next/image';
-
+import { FilteredCategories } from './FilteredCategories ';
+import ExportPDF from '@/components/table/ExportPDF';
 
 const CategoriesPage = () => {
     const [categories, setCategories] = useState([] as Category[]);
+        
     const contentRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const data = await categoriesRepository.getAllCategories();
-                console.log(data)
                 setCategories(data);
 
             } catch (error) {
@@ -26,35 +26,31 @@ const CategoriesPage = () => {
         fetchCategories();
 
     }, []);
+   
 
     return (
-        <div className='overflow-hidden'>
-        <div className="w-full fix p-6 items-center justify-center md:justify-start">
-          <h1 className='absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-2xl mx-auto  md:left-auto md:transform-none'>
-            Categories
-          </h1>
-          <SearchBox />
-        <div className="grid sm:grid-col-2 md:grid-cols-4 gap-4 p-3" ref={contentRef}>
-            {categories.map((category, index) => (
-                <div key={index} className="flex flex-col bg-white shadow-sm border border-slate-200 rounded-lg my-6 w-50 h-[70%] text-sm">
-                <div className="m-2.5 overflow-hidden rounded-md h-full flex justify-center items-center">
-                <Image className="w-full h-full object-cover" width={300} height={500} src={`/images/${category.name}.jpg`} alt="picture" />
-                </div>
-                <div className="p-4 text-center">
-                  <h4 className="mb-1 text-xl font-semibold text-slate-800">
-                    {category.name}
-                  </h4>
-                </div>
-                <div className="flex justify-center mb-4">
-                  <button className="min-w-32  rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                    Details
-                  </button>
-                </div>
-              </div>
-             )) }
+      <div className="overflow-hidden ref={contentRef}">
+      <div className="w-full p-6 flex flex-col items-center md:flex-row md:justify-between">
+        <h1 className="font-bold text-2xl mx-auto text-center lg:text-start lg:text-3xl">
+          Categories
+        </h1>
+        
+      </div>
+      <div className=' flex px-6 items-center justify-between'>
+        <div>
+          <SearchBox/>
         </div>
+        <div className="w-full lg:w-40 flex items-center lg:justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md">
+          <ExportPDF contentRef={contentRef} />
         </div>
-        </div>
+        
+      </div>
+ 
+       <Suspense fallback={<div>Loading...</div>}>
+          <FilteredCategories categories={categories} />
+        </Suspense>
+    </div>
+    
     );
 }
 

@@ -83,5 +83,19 @@
       "id": "153",
       "name": "Snacks"
     }
+  ],
+  "roles":[
+    {
+      "id": "100",
+      "name": "Admin"
+    }, 
+    {
+      "id": "101",
+      "name": "Sub admin"
+    }, 
+    {
+      "id": "102",
+      "name": "Store Owner"
+    }
   ]
 }

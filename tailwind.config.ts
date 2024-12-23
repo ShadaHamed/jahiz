@@ -16,6 +16,9 @@ const config: Config = {
         secondaryColor: "var(--secondaryColor) ",
         drakColor: "var(--darkColor)" 
       },
+      fontFamily: {
+        Tajawal: ['Tajawal']
+      }
     },
   },
   plugins: [],

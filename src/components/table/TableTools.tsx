@@ -10,9 +10,9 @@ contentRef: React.RefObject<HTMLDivElement>;
 
 const TableTools = ({data, contentRef}: TableToolsProps) => {
   return (
-    <div className="flex w-full md:w-auto flex-row gap-4 md:justify-between items-center my-8">
+    <div className="flex w-full md:w-auto flex-row md:justify-between items-center my-8">
       {/* Search Box */}
-      <div className=''>
+      <div className='mr-4'>
         <SearchBox />
       </div>
 
@@ -22,7 +22,7 @@ const TableTools = ({data, contentRef}: TableToolsProps) => {
       </div>
 
       {/* Export PDF */}
-      <div className="w-full md:w-40 flex items-center md:justify-center md:bg-gray-100 md:px-4 md:rounded-md">
+      <div className="w-full lg:w-40 flex items-center lg:justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md">
           <ExportPDF contentRef={contentRef} />
       </div>
     </div>

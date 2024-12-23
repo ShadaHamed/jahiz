@@ -28,9 +28,9 @@ const TrendIcon = getChangeTrend(change);
 
   return (
     <div key={id} className="bg-white border rounded-lg p-4 text-sm shadow-sm flex flex-col items-center">
-      <div className="flex">
-        <TitleIcon className="text-secondaryColor" size={20} />
-        <h2 className="text-base font-semibold text-secondaryColor">{title}</h2>
+      <div className="flex items-center justify-between gap-2">
+        <TitleIcon className="text-primaryColor" size={20} />
+        <h2 className="text-base font-semibold text-gray-600">{title}</h2>
       </div>
       <div className="flex justify-between items-center mt-3 w-full">
           <p className="text-2xlfont-bold">{value}</p>

@@ -27,12 +27,7 @@ const EditUserInfo = async({ params }: any) => {
 
   return (
     <div className="p-6">
-      <div className='flex items-center justify-start space-x-4 absolute top-4 left-1/2 transform -translate-x-1/2 font-bold text-2xl mx-auto md:left-auto md:transform-none'>
-        <BackButton />
-        <h2 className="text-2xl font-bold my-4">Edit Customer Information</h2>
-      </div>
       <EditCustomerForm id={id} initialValues={initialValues} />
-      
     </div>
   )
 }

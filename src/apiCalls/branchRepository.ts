@@ -9,6 +9,13 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/branches";
       const response = await axios.get(BASE_URL);
       return response.data;
     }
+
+      // Fetch branches with pagination
+  async getPaginatedBranches(page: number, limit: number): Promise<{ data: Branch[]; total: number }> {
+    const response = await axios.get(`${BASE_URL}?_page=${page}&_limit=${limit}`);
+    const total = parseInt(response.headers['x-total-count'], 10); // Extract total count from headers
+    return { data: response.data, total };
+  }
   
     // Get a branch by ID
     async getBranchById(id: string): Promise<Branch> {

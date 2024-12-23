@@ -1,13 +1,28 @@
-// import { useTranslation } from "next-i18next";
+'use client'
+
+import { useEffect } from "react";
+import { redirect, useRouter } from "next/navigation";
+import LoginPage from "./(user)/login/page";
+import { useAuth } from "./(user)/AuthContext";
+import AdminDashboard from "./admin/dashboard/page";
 
 const Home = () => {
-  // const { t } = useTranslation();
+  const {isAuthenticated} = useAuth()
+  // const router = useRouter();
 
-  return (
-    <div className=' m-4 flex items-center justify-center md:justify-between'>
-      <h1 className='absolute top-4 text-2xl font-bold mx-auto'>Home Page</h1>
-    </div>
-  )
-}
+  // useEffect(() => {
+  //   // Redirect root route to login page
+  //   router.replace("/login");
+  // }, [router]);
+
+  // return null;
+  if(!isAuthenticated) {
+    redirect('/login')
+  }
+  else {
+    redirect('/admin/dashboard')
+  }
+
+};
 
 export default Home;

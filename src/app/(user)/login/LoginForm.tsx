@@ -106,7 +106,7 @@ const LoginForm = () => {
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
         </label>
       </div>
-      <div className='flex items-center justify-between gap-8 mb-4'>
+      <div className='flex flex-col md:flex-row space-y-2 md:items-center md:justify-between mb-4'>
         <label className='inline-flex items-center'>
           <input
            type="checkbox"
