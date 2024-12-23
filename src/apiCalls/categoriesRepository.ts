@@ -3,28 +3,40 @@ import { Category } from '@/utils/types';
  
 const BASE_URL = "https://json-server-app-zwl3.onrender.com/categories"
 
-  class BranchRepository {
-    // Fetch all branches
+  class categoriesRepository {
+    // Fetch all categories
     async getAllCategories(): Promise<Category[]> {
       const response = await axios.get(BASE_URL);
+      if (!response.data || response.data.length === 0) {
+        throw new Error("No categories found");
+      }
       return response.data;
     }
   
-    // Get a branch by ID
+    // Get a category by ID
     async getCategoryById(id: string): Promise<Category> {
       const response = await axios.get(`${BASE_URL}/${id}`);
+      if (!response.data || response.data.length === 0) {
+        throw new Error("categorie not exist");
+      }
       return response.data;
     }
   
-    // Create a new branch
+    // Create a new category
     async createCategory(category: Omit<Category, 'id'>): Promise<Category> {
       const response = await axios.post(BASE_URL, category);
+      if (!response.data || response.data.length === 0) {
+        throw new Error("error creating category");
+      }
       return response.data;
     }
   
-    // Update an existing branch
+    // Update an existing category
     async updateCategory(id: string, updatedData: Partial<Category>): Promise<Category> {
       const response = await axios.patch(`${BASE_URL}/${id}`, updatedData);
+      if (!response.data || response.data.length === 0) {
+        throw new Error("error updating category");
+      }
       return response.data;
     }
   
@@ -34,6 +46,6 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/categories"
   }
   
   // Export an instance of the repository
-  const branchRepository = new BranchRepository();
+  const branchRepository = new categoriesRepository();
   export default branchRepository;
   
