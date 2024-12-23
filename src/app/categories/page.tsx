@@ -38,7 +38,9 @@ const CategoriesPage = () => {
       </div>
       <div className=' flex px-6 items-center justify-between'>
         <div>
+        <Suspense fallback={<div>Loading...</div>}>
           <SearchBox/>
+        </Suspense>
         </div>
         <div className="w-full lg:w-40 flex items-center lg:justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md">
           <ExportPDF contentRef={contentRef} />

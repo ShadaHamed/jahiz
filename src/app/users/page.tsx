@@ -48,8 +48,8 @@ const UsersPage = () => {
   };
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <GlobalProvider>
-      <Suspense fallback={<div>Loading...</div>}>
     <div className='overflow-hidden'>
       <div className="w-full fix p-6 items-center justify-center md:justify-start">
         <h2 className="font-bold text-2xl mx-auto text-center lg:text-start lg:text-3xl">
@@ -58,7 +58,9 @@ const UsersPage = () => {
         
         <div className='flex lg:justify-between items-center my-8'>
           <div>
+          <Suspense fallback={<div>Loading...</div>}>
             <SearchBox />
+          </Suspense>
           </div >
           <div className='flex justify-between gap-1 cursor-pointer'>
             <button 
@@ -93,8 +95,8 @@ const UsersPage = () => {
         </div>
       </div>
     </div>
-          </Suspense>
     </GlobalProvider>
+    </Suspense>
   )
 }
 
