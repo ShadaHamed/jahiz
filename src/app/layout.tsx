@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-import { AuthProvider } from "./(user)/AuthContext";
+// import Sidebar from "@/components/Sidebar";
+// import { AuthProvider } from "./(user)/AuthContext";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
@@ -21,21 +21,16 @@ export default async function PublicLayout({ children}: { children: React.ReactN
   return (
     <html lang="en">
       <body>
-      <AuthProvider>
-      {/* <div className="flex min-h-screen">
-        <ToastContainer theme='colored' position='top-center' />
-      {!isLoginPage && <Sidebar />} 
-      <main className={`flex-1 ${isLoginPage ? "w-full" : ""}`}>{children}</main>
-      </div> */}
-      
+      {/* <AuthProvider> */}
+
         <div className="relative flex h-screen">
-          <Sidebar />    
+          {/* <Sidebar />     */}
           <main className="flex-1 overflow-y-auto transition-all duration-300">
           <ToastContainer theme='colored' position='top-center' />
           <div>{children}</div>
           </main>
         </div>
-        </AuthProvider>
+        {/* </AuthProvider> */}
       </body>
     </html>
   );
