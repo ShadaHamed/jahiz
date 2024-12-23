@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { MdOutlineMail } from "react-icons/md";
 import { BiLockOpenAlt } from "react-icons/bi";
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../AuthContext';
+// import { useAuth } from '../AuthContext';
 import { AxiosError } from 'axios';
 
 type LoginFormInputs = {
@@ -14,7 +14,7 @@ type LoginFormInputs = {
 
 const LoginForm = () => {
     const router = useRouter();
-    const { login } = useAuth();
+    // const { login } = useAuth();
 
     const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm<LoginFormInputs>({
       mode: 'onSubmit', // Validation will trigger only after form submit;
@@ -26,7 +26,7 @@ const LoginForm = () => {
           clearErrors(); // Clear errors before submission
 
           //stimulate API request
-          await login(data.email, data.password);
+          // await login(data.email, data.password);
 
           router.replace('/admin/dashboard');
           router.refresh();

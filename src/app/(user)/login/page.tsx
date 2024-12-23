@@ -2,7 +2,7 @@ import Image from "next/image"
 import LoginForm from "./LoginForm"
 // import loginImage from "../../../../public/loginImage.png"
 // import A from "../../../../public/A.png"
-import BackButton from "@/components/Buttons"
+// import BackButton from "@/components/Buttons"
 
 const LoginPage = () => {
 
@@ -13,7 +13,8 @@ const LoginPage = () => {
         {/* left side */}
           <div className="md:w-full lg:w-1/2 p-8 relative flex flex-col items-center text-sm">
             <div className="absolute top-4 left-4">
-              <BackButton />
+              {/* <BackButton /> */}
+              back button
             </div>
             <div className="py-2 w-full">
             <div className="my-4 rounded flex justify-center items-center">
