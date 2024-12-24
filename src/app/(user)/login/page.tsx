@@ -1,5 +1,5 @@
 import Image from "next/image"
-import LoginForm from "./LoginForm"
+// import LoginForm from "./LoginForm"
 // import loginImage from "../../../../public/loginImage.png"
 // import A from "../../../../public/A.png"
 import BackButton from "@/components/Buttons"
@@ -21,7 +21,7 @@ const LoginPage = () => {
             </div>
               <h2 className="text-lg md:text-2xl text-center font-bold mb-2">Welcom Back!</h2>
               <p className="mb-6 text-center text-xs">Please Sign in to continue</p>
-              <LoginForm />
+              {/* <LoginForm /> */}
               <p className="flex flex-col space-y-1 md:flex-row md:justify-center md:space-x-1 md:space-y-0 mt-4 md:text-center text-xs font-semibold text-gray-700">
                 <span>Not a member? {" "}</span>
                 <span>
