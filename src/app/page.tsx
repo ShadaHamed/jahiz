@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
-// import LoginPage from "./(user)/login/page";
-// import { useAuth } from "./(user)/AuthContext";
-// import AdminDashboard from "./admin/dashboard/page";
+import LoginPage from "./(user)/login/page";
+import { useAuth } from "./(user)/AuthContext";
+import AdminDashboard from "./admin/dashboard/page";
 
 const Home = () => {
-  // const {isAuthenticated} = useAuth()
+  const {isAuthenticated} = useAuth()
   // const router = useRouter();
 
   // useEffect(() => {
@@ -16,16 +16,14 @@ const Home = () => {
   // }, [router]);
 
   // return null;
-//   if(!isAuthenticated) {
-//     redirect('/login')
-//   }
-//   else {
-//     redirect('/admin/dashboard')
-//   }
+  if(!isAuthenticated) {
+    redirect('/login')
+  }
+  else {
+    redirect('/admin/dashboard')
+  }
 
-// };
-return (
-  <div>home page</div>
-)
-}
+};
+
+
 export default Home;
