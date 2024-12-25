@@ -44,8 +44,7 @@ const ReusableForm = <T extends Record<string, any>>({
           className="text-xs font-semibold text-gray-700" 
         >
           {field.label}
-        </label>
-
+        </label> 
         {field.type === 'select' && field.options ? (
           <Controller
             name={field.name as Path<T>}
@@ -93,7 +92,7 @@ const ReusableForm = <T extends Record<string, any>>({
       )}
     </div>
   ))}
-  <div className='flex flex-col-reverse md:flex-row items-center justify-between mx-8'>
+  <div className='flex flex-col-reverse gap-2 md:flex-row items-center justify-between mx-8'>
     <button 
       type='button'
       onClick={() => redirect(backNavigation)}

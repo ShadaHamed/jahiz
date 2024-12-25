@@ -31,6 +31,7 @@ export type User = {
 export type Category = {
   id: string;
   name: string;
+  image:string;
 }
 export type Role = {
   id: string;

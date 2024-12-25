@@ -22,14 +22,34 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/categories"
       return response.data;
     }
   
+    // // Create a new category
+    // async createCategory(category: Omit<Category, 'id'>): Promise<Category> {
+    //   const response = await axios.post(BASE_URL, category);
+    //   if (!response.data || response.data.length === 0) {
+    //     throw new Error("error creating category");
+    //   }
+    //   return response.data;
+    // }
     // Create a new category
-    async createCategory(category: Omit<Category, 'id'>): Promise<Category> {
-      const response = await axios.post(BASE_URL, category);
-      if (!response.data || response.data.length === 0) {
-        throw new Error("error creating category");
-      }
-      return response.data;
+async createCategory(category: FormData): Promise<Category> {
+  try {
+    const response = await axios.post(BASE_URL, category, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Set the correct content type for FormData
+      },
+    });
+
+    if (!response.data) {
+      throw new Error('Error creating category');
     }
+
+    return response.data;
+  } catch (error) {
+    console.error('Error creating category:', error);
+    throw new Error('Failed to create category');
+  }
+}
+
   
     // Update an existing category
     async updateCategory(id: string, updatedData: Partial<Category>): Promise<Category> {
@@ -46,6 +66,6 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/categories"
   }
   
   // Export an instance of the repository
-  const branchRepository = new categoriesRepository();
-  export default branchRepository;
+  const categoryRepository = new categoriesRepository();
+  export default categoryRepository;
   
