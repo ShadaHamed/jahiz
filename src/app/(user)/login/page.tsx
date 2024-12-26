@@ -7,8 +7,8 @@ import BackButton from "@/components/Buttons"
 const LoginPage = () => {
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-r from-primaryColor_2 to-secondaryColor p-6 h-screen">
-        <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row w-4/5 md:w-3/5 lg:w-4/5 max-w-4xl h-auto ">
+    <div className="flex items-center justify-center bg-gradient-to-r from-primaryColor_2 to-secondaryColor p-6 min-h-screen md:h-screen">
+        <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row w-full  md:w-3/5 lg:w-4/5 max-w-4xl h-auto">
         
         {/* left side */}
           <div className="md:w-full lg:w-1/2 p-8 relative flex flex-col items-center text-sm">
