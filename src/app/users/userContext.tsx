@@ -18,6 +18,7 @@ interface GlobalState {
   filteredUsers: User[]; 
   kanbanProcessedUsers: any[];
   setFilteredUsers: (users: User[]) => void; 
+  loading: boolean;
 }
 
 const defaultState: GlobalState = {
@@ -30,6 +31,7 @@ const defaultState: GlobalState = {
   filteredUsers:[],
   kanbanProcessedUsers:[],
   setFilteredUsers: () => {},
+  loading:true
 };
 
 const userContext = createContext<GlobalState>(defaultState);
@@ -44,6 +46,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const query = searchParams.get('query') || ''; // Get the 'query' parameter
   const [noUserToastShown, setNoUserToastShown] = useState(false); // Prevent repeated toasts
   const router = useRouter();
+    const [loading, setLoading] = useState(true);
+  
   
   // Extract pageNumber from URL
   const pageNumber = Number(searchParams.get('pageNumber')) || 1;
@@ -61,6 +65,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         const roles = await roleRepository.getAllRoles();
         setUsers(users);
         setUserCount(users.length);
+        setLoading(false);
         setRoles(roles);
 
       } catch (error) {
@@ -135,7 +140,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
       setPageNumber,
       filteredUsers,
       kanbanProcessedUsers,
-      setFilteredUsers
+      setFilteredUsers,
+      loading
     }}>
       {children}
     </userContext.Provider>

@@ -12,13 +12,15 @@ type DynamicTableProps<T extends Record<string, any>> = {
   data: T[];
   editLink: string;
   handleDelete?: (id :string) => void;
+  isLoading?: boolean;
 };
 
 function DynamicTable<T extends Record<string, any>>({
   columns,
   data,
   editLink,
-  handleDelete
+  handleDelete,
+  isLoading = false,
 }: DynamicTableProps<T>) {
   const [filteredData, setFilteredData] = useState(data);
   const [deleting, setDeleting] = useState<string | null>(null); // Track deleting user
@@ -52,6 +54,14 @@ function DynamicTable<T extends Record<string, any>>({
       <div className="overflow-x-auto w-full">
         <div className="min-w-full inline-block align-middle p-4">
           <div className="overflow-hidden rounded-lg">
+          {isLoading ? (
+              // Show loading spinner or message
+              <div className="flex justify-center items-center h-32">
+                <span className="text-primaryColor text-lg font-semibold">
+                  Loading...
+                </span>
+              </div>
+            ): (
             <table className="min-w-full divide-y divide-gray-200 text-left rtl:text-right rounded-lg">
               <thead>
                 <tr className="bg-primaryColor">
@@ -127,6 +137,7 @@ function DynamicTable<T extends Record<string, any>>({
                 ))}
               </tbody>
             </table>
+            )}
           </div>
         </div>
       </div>

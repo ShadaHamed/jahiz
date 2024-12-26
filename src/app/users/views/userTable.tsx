@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 const UserTable = () => {
 
-  const {processedUsers, pages, pageNumber} = useGlobal();
+  const {processedUsers, pages, pageNumber, loading} = useGlobal();
   const columns: Array<keyof User>= ['name', 'phone_number', 'address', 'email','role'];
   const deleteData: {
     type: string;
@@ -35,11 +35,18 @@ const UserTable = () => {
 
   return (
     <div>
-      <DynamicTable columns={columns} data={processedUsers} editLink="/users/edit" handleDelete={handleDelete} />
+      <DynamicTable 
+        columns={columns}
+        data={processedUsers}
+        editLink="/users/edit"
+        handleDelete={handleDelete} 
+        isLoading={loading} />
+        
       <Pagination
         pageNumber={pageNumber}
         pages={pages}
         route="/users"
+
       />
     </div>
   )

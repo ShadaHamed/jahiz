@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { cityData } from "@/utils/cities";
-import {Feature, Geometry} from "geojson"
+import { Feature, Geometry } from "geojson";
 import { Layer } from 'leaflet';
 
 type RegionProperties = {
@@ -13,7 +13,7 @@ type RegionProperties = {
 };
 
 // Helper function to get color based on density
-const getColor = (density:number) => {
+const getColor = (density: number) => {
   if (density >= 75) return "#1F968BFF"; // Darkest color for highest density
   if (density >= 50) return "#3CBC75FF";
   if (density >= 25) return "#74D055FF";
@@ -23,7 +23,6 @@ const getColor = (density:number) => {
 // Function to style each region based on its density
 const getRegionStyle = (feature?: Feature<Geometry, RegionProperties>) => {
   if (!feature || !feature.properties) {
-    // Provide a default style if feature or properties are undefined
     return {
       fillColor: "gray",
       weight: 1,
@@ -41,10 +40,9 @@ const getRegionStyle = (feature?: Feature<Geometry, RegionProperties>) => {
 };
 
 // Function to handle each feature (adds tooltip)
-const onEachFeature = (feature:Feature<Geometry, RegionProperties> | undefined, layer: Layer) => {
-
+const onEachFeature = (feature: Feature<Geometry, RegionProperties> | undefined, layer: Layer) => {
   if (!feature || !feature.properties) {
-    return; 
+    return;
   }
   const density = feature.properties.density;
   const color = getColor(density);
@@ -88,15 +86,19 @@ const Map = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold my-4 ms-4">Orders By Cities</h1>
-      <div className="flex">
-        {/* List of cities */}
-        <div className="w-1/3 me-4">
-          <ul className="text-xs my-4 ms-4">
+      <section className="flex flex-col justify-around gap-2">
+        {/* Map Section */}
+        <div className="w-full bg-white border rounded-lg">
+          <div id="map" style={{ height: '250px', width: '100%' }}></div>
+        </div>
+
+        {/* List of Cities below the map */}
+        <div className="w-full bg-white border rounded-lg p-4 overflow-auto ">
+          <ul className="text-xs">
             {cityData.features.map((city) => (
               <li className="flex justify-between border-b my-2" key={city.properties?.name}>
                 <span
-                  className="inline w-[10px] h-[10px] rounded-lg ms-[6px]"
+                  className="inline-block w-[10px] h-[10px] rounded-full"
                   style={{ backgroundColor: getColor(city.properties?.density) }}
                 ></span>
                 <span>{city.properties?.name}</span>
@@ -105,12 +107,7 @@ const Map = () => {
             ))}
           </ul>
         </div>
-
-        {/* Map section */}
-        <div className="w-2/3 me-2">
-          <div id="map" style={{ height: '200px', width: '100%' }}></div>
-        </div>
-      </div>
+      </section>
     </>
   );
 };

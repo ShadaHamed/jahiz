@@ -72,7 +72,7 @@ const AdminDashboard = () => {
       </section>
 
       {/* Pie Chart & Map Section */}
-      <section className="flex flex-col md:flex-row gap-4">
+      <section className="container flex flex-col md:flex-row gap-4">
         {/* Pie Chart */}
         <div className="container flex-1 w-full md:w-1/2 bg-white border rounded-lg p-4">
           <h1 className="text-xl font-bold mb-4">Orders By Product Category</h1>
@@ -80,7 +80,8 @@ const AdminDashboard = () => {
         </div>
 
         {/* Map */}
-        <div className=" h-[300px] md:w-1/2 bg-white border rounded-lg">
+        <div className=" md:w-1/2 bg-white border rounded-lg p-4">
+        <h1 className="text-xl font-bold mb-4">Orders By Cities</h1>
           <Map key={new Date().getTime()}/>
         </div>
       </section>

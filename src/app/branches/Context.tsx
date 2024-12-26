@@ -20,6 +20,7 @@ interface GlobalState {
   selectedLocation: string;
   setSelectedLocation:(location: string) => void;
   refetchBranches: () => Promise<void>;
+  loading: boolean;
 }
 
 const defaultState: GlobalState = {
@@ -34,7 +35,8 @@ const defaultState: GlobalState = {
   uniqueLocations: [],
   selectedLocation: "All Locations",
   setSelectedLocation:() => {},
-  refetchBranches: async () => {}
+  refetchBranches: async () => {},
+  loading:true
 };
 
 const GlobalContext = createContext<GlobalState>(defaultState);
@@ -45,6 +47,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [branchCount, setBranchCount] = useState(0);
   const [filteredBranches, setFilteredBranches] = useState<Branch[]>([]); 
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
@@ -71,6 +74,7 @@ const searchParams = useSearchParams();
         const branches = await branchRepository.getAllBranches();  // Fetch branches from the repository
         setBranches(branches);  // Set the fetched branches as default value
         setBranchCount(branches.length)
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching branches:', error);
       }
@@ -156,7 +160,8 @@ const searchParams = useSearchParams();
       uniqueLocations,
       selectedLocation,
       setSelectedLocation,
-      refetchBranches
+      refetchBranches,
+      loading
     }}>
       {children}
     </GlobalContext.Provider>
