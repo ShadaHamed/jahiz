@@ -35,7 +35,7 @@ console.log('search text' ,searchText)
     <div className="relative">
       {/* Mobile Search Icon */}
       <div 
-        className="block lg:hidden text-gray-900 cursor-pointer"
+        className="block xl:hidden text-gray-900 cursor-pointer"
         onClick={() => setInputVisible(!isInputVisible)}
       >
         <FaSearch size={40} className='text-white border rounded-md p-2 bg-primaryColor'/>
@@ -43,7 +43,7 @@ console.log('search text' ,searchText)
 
       {/* Mobile Input Box */}
       {isInputVisible && (
-        <div className="lg:hidden absolute mb-3 w-96 z-10 shadow-lg p-2 rounded-md select-text">
+        <div className="xl:hidden absolute mb-3 w-96 z-10 shadow-lg p-2 rounded-md select-text">
           <form className="relative w-full bg-none" onSubmit={formSubmitHandler}>
             <input
               type="text"
@@ -61,7 +61,7 @@ console.log('search text' ,searchText)
 
       {/* Desktop Search Box */}
       <form
-        className="hidden lg:flex justify-between items-center w-96"
+        className="hidden xl:flex justify-between items-center w-96"
         onSubmit={formSubmitHandler}
       >
         <div className="relative w-full">

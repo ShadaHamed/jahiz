@@ -22,7 +22,7 @@ const TableTools = ({data, contentRef}: TableToolsProps) => {
       </div>
 
       {/* Export PDF */}
-      <div className="w-full lg:w-40 flex items-center lg:justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md">
+      <div className="w-full xl:w-40 flex items-center xl:justify-center xl:bg-gray-100 xl:px-4 xl:rounded-md">
           <ExportPDF contentRef={contentRef} />
       </div>
     </div>

@@ -29,7 +29,7 @@ const AdminDashboard = () => {
      
 
       {/* Cards Section */}
-      <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center">
+      <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center p-4 rounded-lg">
         {cardData.map((card) => (
           <Card key={card.id} {...card} />
         ))}

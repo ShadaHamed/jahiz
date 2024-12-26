@@ -24,7 +24,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({ data }) => {
   return (
     <div className="relative flex items-center space-x-4 border-0">
       {/* Icon visible only on small screens */}
-      <div className='relative flex flex-row items-center justify-center mr-6 lg:hidden'>
+      <div className='relative flex flex-row items-center justify-center mr-6 xl:hidden'>
         <FaFilter size={40} className='z-10 text-white border rounded-md p-2 bg-primaryColor'/>
       {/* Dropdown (hidden by default on small screens, visible when icon is clicked) */}
       { (
@@ -47,7 +47,7 @@ const FilterBox: React.FC<FilterBoxProps> = ({ data }) => {
       {/* Dropdown always visible on larger screens */}
       <select
         name="filter"
-        className="hidden lg:block w-96 px-4 py-3 border-0 rounded text-sm bg-gray-100 text-gray-800 focus:outline-none focus:shadow-md"
+        className="hidden xl:block w-96 px-4 py-3 border-0 rounded text-sm bg-gray-100 text-gray-800 focus:outline-none focus:shadow-md"
         value={selectedLocation}
         onChange={(e) => handleFilter(e.target.value)}
       >

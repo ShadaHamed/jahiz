@@ -49,7 +49,7 @@ const ExportPDF: React.FC<ExportPDFProps> = ({ contentRef }) => {
     <div className="flex items-center">
       {/* Icon for small screens */}
       <div
-        className="lg:hidden flex items-center cursor-pointer"
+        className="xl:hidden flex items-center cursor-pointer"
         onClick={exportPDF}
       >
         <FaDownload size={40} className='text-white border rounded-md p-2 bg-primaryColor '/>
@@ -58,7 +58,7 @@ const ExportPDF: React.FC<ExportPDFProps> = ({ contentRef }) => {
       {/* Button for medium and larger screens */}
       <button
         onClick={exportPDF}
-        className="hidden lg:block py-3 rounded-md text-sm text-darkColor focus:shadow-md cursor-pointer active:bg-primaryColor active:text-white"
+        className="hidden xl:block py-3 rounded-md text-sm text-darkColor focus:shadow-md cursor-pointer active:bg-primaryColor active:text-white"
       >
         Export
       </button>
