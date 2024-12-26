@@ -97,7 +97,6 @@ const onSubmit = async (data: User) => {
 
     const id = generateId();
     const newUser = {  ...data, id };
-    console.log('new user', newUser)
     await userRepository.createUser(newUser);
     toast.success('New user created successfully!');
     router.push('/users'); 

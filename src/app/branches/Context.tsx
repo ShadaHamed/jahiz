@@ -17,8 +17,9 @@ interface GlobalState {
   filteredBranches: Branch[]; 
   setFilteredBranches: (branches: Branch[]) => void; 
   uniqueLocations: string[];
-  selectedLocation: string,
-  setSelectedLocation:(location: string) => void
+  selectedLocation: string;
+  setSelectedLocation:(location: string) => void;
+  refetchBranches: () => Promise<void>;
 }
 
 const defaultState: GlobalState = {
@@ -32,7 +33,8 @@ const defaultState: GlobalState = {
   setFilteredBranches: () => {},
   uniqueLocations: [],
   selectedLocation: "All Locations",
-  setSelectedLocation:() => {}
+  setSelectedLocation:() => {},
+  refetchBranches: async () => {}
 };
 
 const GlobalContext = createContext<GlobalState>(defaultState);
@@ -74,7 +76,8 @@ const searchParams = useSearchParams();
       }
     };
 
-    fetchBranches();  
+    fetchBranches(); 
+
   }, []);  
 
   const uniqueLocations = [...new Set(branches.map((branch) => branch.location))];
@@ -82,6 +85,7 @@ const searchParams = useSearchParams();
   // Initialize filteredBranches with all branches once fetched
   useEffect(() => {
     setFilteredBranches(branches);
+    router.refresh();
   }, [branches]);
 
   useEffect(() => {
@@ -115,7 +119,16 @@ const searchParams = useSearchParams();
     //     setNoBranchToastShown(false); // Reset flag if branches are found
     //   }
     // }, [searchedBranches, query, noBranchToastShown]);
-
+    const refetchBranches = async () => {
+      try {
+        const updatedBranches = await branchRepository.getAllBranches();
+        setBranches(updatedBranches);
+        setFilteredBranches(updatedBranches);
+      } catch (error) {
+        console.error('Error refetching branches:', error);
+      }
+    };
+    
     // Pagination logic for tabel
     const pages = Math.ceil(filteredBranches.length / ITEMS_PER_PAGE);
     const startIndex = (pageNumber - 1) * ITEMS_PER_PAGE;
@@ -129,6 +142,7 @@ const searchParams = useSearchParams();
     };
   });
 
+
   return (
     <GlobalContext.Provider  value={{
       processedBranches,
@@ -141,7 +155,8 @@ const searchParams = useSearchParams();
       setFilteredBranches,
       uniqueLocations,
       selectedLocation,
-      setSelectedLocation
+      setSelectedLocation,
+      refetchBranches
     }}>
       {children}
     </GlobalContext.Provider>

@@ -4,13 +4,15 @@ import cityRepository from '@/apiCalls/cityRepository';
 import ReusableForm from '@/components/ReusableForm'
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { City } from '@/utils/types';
+import { Branch, City } from '@/utils/types';
 import { Field } from '@/utils/types'
 import { toast } from 'react-toastify';
+import { useGlobal } from '../Context';
 
 const BranchForm = () => {
   const [cities, setCities] = useState<City[]>()
   const router = useRouter();
+  const {refetchBranches, filteredBranches, setFilteredBranches} = useGlobal();
  // Define form fields
   const branchFormFields: Field[] = [
   {
@@ -72,7 +74,7 @@ useEffect(() => {
 }, []); 
 
 // Handle form submission
-const handleSubmit = (data: {english_branch_Name: string; arabic_branch_Name: string; location: string; status: string }) => {
+const handleSubmit = async(data: {english_branch_Name: string; arabic_branch_Name: string; location: string; status: string }) => {
   try {
 
     const newBranch = {
@@ -84,10 +86,14 @@ const handleSubmit = (data: {english_branch_Name: string; arabic_branch_Name: st
       status: data.status,
     };
 
-    branchRepository.createBranch(newBranch);
+    const createdBranch = await branchRepository.createBranch(newBranch);
     toast.success('Branch created successfully!');
+    const updatedBranches = [...filteredBranches, createdBranch];
+    setFilteredBranches(updatedBranches) 
     router.refresh();
+    refetchBranches();
     router.push('/branches'); // Redirect to branches page
+  
   } catch (error) {
     toast.error('Failed to create branch. Please try again.');
   }

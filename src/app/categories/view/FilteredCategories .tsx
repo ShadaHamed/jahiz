@@ -17,6 +17,7 @@ export const FilteredCategories = () => {
     const searchParams = useSearchParams();
   
     const handleCategoryUpdated = async () => {
+      setDropdownOpen(null);
       await refetchCategories(); // Refresh the category list
     };
     // useEffect(() => {
