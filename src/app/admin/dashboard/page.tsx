@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   const [barChart, setBarChart] = useState(true);
 
   return (
-    <div className="container p-6 space-y-6 ">
+    <div className="container p-6 space-y-6">
       {/* Page Title */}
       <h2 className="font-bold text-2xl mx-auto text-center lg:text-start lg:text-3xl">
           Dashboard

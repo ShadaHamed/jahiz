@@ -8,7 +8,6 @@
   aspect-ratio: 1 / 1;
   position: relative;
   margin: auto;
-  gap: 20px;
 }
 
 @media (min-width: 768px) {
