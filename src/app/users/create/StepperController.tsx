@@ -1,8 +1,7 @@
 import React from 'react'
 
 const StepperController = ({ handleClick, currentStep, steps }) => {
-  console.log('curent step', currentStep)
-  console.log('step length', steps.length )
+
   return (
     <div className="container flex justify-around mt-4 mb-8">
       {/* Back Button */}

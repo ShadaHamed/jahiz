@@ -13,6 +13,18 @@ export type BranchFormValues = {
   location: string;
   status: string;
 }
+export type CityFormValues = {
+  english_city_Name: string;
+  arabic_city_Name: string;
+  status:string;
+}
+
+export type RegionFormValues = {
+  english_region_Name: string;
+  arabic_region_Name: string;
+  cityID: string;
+  status:string;
+}
 
 export type User = {
     id: string
@@ -30,8 +42,10 @@ export type User = {
 }
 export type Category = {
   id: string;
-  name: string;
-  image:string;
+  category_Name: string;
+  category_Image: string | null;
+  status: string;
+
 }
 export type Role = {
   id: string;
@@ -39,11 +53,21 @@ export type Role = {
 }
 export type City = {
   id: string;
-  name: string;
+  name: {
+    en: string;
+    ar: string;
+  };
+  status: string;
 }
 export type Region = {
   id: string;
-  name: string;
+  name: {
+    en: string;
+    ar: string;
+  };
+  cityID: string;
+  status: string;
+
 }
 export type LoginUser = Pick<User, 'email' | 'password'>;
 

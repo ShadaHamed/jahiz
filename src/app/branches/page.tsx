@@ -20,10 +20,10 @@ const BranchContent = ( ) => {
             <div className='flex justify-between items-center p-4'>
               <div className='flex flex-col'>
                 <h2 className='text-xl font-bold'>Branches</h2>
-                <p className='hidden md:block text-sm text-gray-500'>A list of all the users in your account</p>
+                <p className='hidden md:block text-sm text-gray-500'>A list of all branches in your account</p>
               </div>
               <Link href='/branches/create'
-                className='p-2 md:p-4 bg-primaryColor text-white rounded-lg text-xs md:text-sm text-center'
+                className='p-2 px-4 bg-primaryColor text-white rounded-lg text-xs md:text-sm text-center'
               >Add Branch</Link>
             </div>
             <div>
@@ -38,7 +38,7 @@ const BranchContent = ( ) => {
 const BranchPage = () => {
   return (
     <GlobalProvider>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
       <BranchContent />
       </Suspense>
     </GlobalProvider>

@@ -1,8 +1,6 @@
 'use client'
 
-import React, {Suspense, useEffect, useRef, useState } from 'react';
-import { Category } from '@/utils/types';
-import categoriesRepository from '@/apiCalls/categoriesRepository';
+import React, { useRef } from 'react';
 import SearchBox from '@/components/table/SearchBox';
 import { FilteredCategories } from './view/FilteredCategories ';
 import ExportPDF from '@/components/table/ExportPDF';
@@ -12,7 +10,6 @@ const CategoriesPage = () => {
     const contentRef = useRef<HTMLDivElement>(null);
     
     return (
-      <Suspense fallback={<div className='flex items-center justify-center'>Loading...</div>}>
       <GlobalProvider>
       <div className="overflow-hidden ref={contentRef}">
       <div className="w-full p-6 flex flex-col items-center md:flex-row md:justify-between">
@@ -21,20 +18,20 @@ const CategoriesPage = () => {
         </h1>
         
       </div>
-      <div className=' flex px-6 items-center justify-between'>
+      <div className=' flex px-6 items-center justify-between '>
         <div>
           <SearchBox/>
         </div>
-        <div className="w-full lg:w-40 flex items-center lg:justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md">
+        <div className="w-full lg:w-40 flex items-center justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
           <ExportPDF contentRef={contentRef} />
         </div>
         
       </div>
- 
-          <FilteredCategories />
+          <div ref={contentRef}>
+            <FilteredCategories />
+          </div>
     </div>
     </GlobalProvider>
-    </Suspense>
     );
 }
 

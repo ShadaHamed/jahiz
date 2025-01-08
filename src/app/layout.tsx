@@ -23,7 +23,7 @@ export default async function PublicLayout({ children}: { children: React.ReactN
       <body>
       <AuthProvider>
 
-        <div className="relative flex h-screen w-full">
+        <div className="relative flex h-screen w-full overflow-hidden">
           <Sidebar />    
           <main className="flex-1 overflow-y-auto transition-all duration-300">
           <ToastContainer theme='colored' position='top-center' />

@@ -13,12 +13,15 @@ interface GlobalState {
   currentPageUsers: any[];
   userCount: number;
   pages: number;
+  k_pages: number;
   pageNumber: number;
   setPageNumber: (page: number) => void;
   filteredUsers: User[]; 
   kanbanProcessedUsers: any[];
   setFilteredUsers: (users: User[]) => void; 
   loading: boolean;
+  setLoading: (value: boolean | ((prev: boolean) => boolean)) => void;
+  refrechUsers: () => Promise<void>;
 }
 
 const defaultState: GlobalState = {
@@ -26,12 +29,16 @@ const defaultState: GlobalState = {
   currentPageUsers: [],
   userCount: 0,
   pages: 1,
+  k_pages:1,
   pageNumber: 1,
   setPageNumber: () => {[]},
   filteredUsers:[],
   kanbanProcessedUsers:[],
   setFilteredUsers: () => {},
-  loading:true
+  loading:true,
+  setLoading: () => {},
+  refrechUsers: async () => {},
+
 };
 
 const userContext = createContext<GlobalState>(defaultState);
@@ -46,7 +53,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const query = searchParams.get('query') || ''; // Get the 'query' parameter
   const [noUserToastShown, setNoUserToastShown] = useState(false); // Prevent repeated toasts
   const router = useRouter();
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   
   
   // Extract pageNumber from URL
@@ -60,6 +67,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 // Fetch users & roles when the component mounts
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true)
       try {
         const users = await userRepository.getAllUsers();  
         const roles = await roleRepository.getAllRoles();
@@ -70,6 +78,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
       } catch (error) {
         console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -99,15 +109,19 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     }, [filterUsers, query]);
 
       // Pagination logic for tabel
-      const pages = Math.ceil(filterUsers.length / ITEMS_PER_PAGE);
-      const startIndex = (pageNumber - 1) * ITEMS_PER_PAGE;
-      const currentPageUsers = filterUsers.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+           const pages = Math.ceil(filterUsers.length / ITEMS_PER_PAGE);
+           const startIndex = query ? 0 : (pageNumber - 1) * ITEMS_PER_PAGE;
+           const currentPageUsers = query 
+                 ? filterUsers // Show all filtered users during search
+                 : filterUsers.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
       // Pagination logic for kanban
       const k_pages = Math.ceil(filterUsers.length / KANBAN_ITEMS_PER_PAGE);
-      const k_startIndex = (pageNumber - 1) * KANBAN_ITEMS_PER_PAGE;
-      const k_currentPageUsers = filterUsers.slice(k_startIndex, k_startIndex + KANBAN_ITEMS_PER_PAGE);
-      
+      const k_startIndex = query ? 0 : (pageNumber - 1) * KANBAN_ITEMS_PER_PAGE;
+      const k_currentPageUsers = query 
+                ? filterUsers // Show all filtered users during search
+                : filterUsers.slice(k_startIndex, k_startIndex + KANBAN_ITEMS_PER_PAGE);
+                
     const processedUsers = (currentPageUsers || []).map(user => {
       const roleName = roles.find(role => role.id === user.role)?.name || 'N/A'; // Get role name by matching role ID
       
@@ -129,6 +143,18 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   
       };
     });
+
+    const refrechUsers = async () => {
+      setLoading(true)
+      try {
+        const updatedUsers = await userRepository.getAllUsers();
+        setUsers(updatedUsers);
+      } catch (error) {
+        console.error('Error refetching users:', error);
+      } finally {
+        setLoading(false)
+      }
+    };
     
   return (
     <userContext.Provider value={{
@@ -136,12 +162,15 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
       currentPageUsers,
       userCount: filterUsers.length,
       pages,
+      k_pages,
       pageNumber,
       setPageNumber,
       filteredUsers,
       kanbanProcessedUsers,
       setFilteredUsers,
-      loading
+      loading,
+      setLoading,
+      refrechUsers
     }}>
       {children}
     </userContext.Provider>

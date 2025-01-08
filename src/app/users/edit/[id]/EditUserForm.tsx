@@ -9,6 +9,7 @@ import { userFormFields } from '@/utils/formFields';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import roleRepository from '@/apiCalls/roleRepository';
+import { useGlobal } from '../../userContext';
 
 type UserFormValues = Omit<User, 'id'>;
 
@@ -28,6 +29,8 @@ const EditCustomerForm: React.FC<EditCustomerFormProps> = ({id, initialValues}) 
 
 const [showPassword, setShowPassword] = useState(false);
 const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
+const { loading, setLoading} = useGlobal();
+const [localLoading, setLocalLoading] = useState(false);
 
 const togglePasswordVisibility = () => {
   setShowPassword((prevState) => !prevState);
@@ -51,13 +54,18 @@ useEffect(() => {
 }, []);
 
   const handleEditSubmit = async (data: UserFormValues) => {
+    setLoading(true)
+    setLocalLoading(true)
     try {
       await userRepository.updateUser(id, data);
-      toast.success('user Information updated successfully!');
+      toast.success('user data updated successfully!');
       router.push('/users'); 
     } catch (error) {
       console.error('Error updating customer information:', error);
       toast.error('Failed to update data. Please try again.');
+    } finally {
+      setLoading(false)
+      setLocalLoading(false)
     }
   };
 
@@ -153,134 +161,11 @@ useEffect(() => {
                             })}
                         />
                     </div>
-                    {/* Password */}
-                    <div className='relative'>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
-                        <input
-                            id='password'
-                            type={showPassword ? 'text' : 'password'}
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("password", {
-                              required: "Password is required", // Password is required
-                              minLength: {
-                                value: 8,
-                                message: "Password must be at least 8 characters long",
-                              },
-                              // maxLength: {
-                              //   value: 20,
-                              //   message: "Password cannot exceed 20 characters",
-                              // },
-                              // pattern: {
-                              //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/, // Strong password pattern
-                              //   message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)",
-                              // },
-                            })}
-                        />
-                            {/* Show/Hide Password Icon */}
-                        <button
-                          type="button"
-                          onClick={togglePasswordVisibility}
-                          className="absolute right-2 top-5 text-gray-500 hover:text-gray-700"
-                        >
-                          {showPassword ? (
-                            <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
-                            tabIndex={0}
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                            ></path>
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            ></path>
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
-                            ></path>
-                          </svg>
-                          )}
-                        </button>
-                    </div>
-                    <div className='relative'>
-                        <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                        <input
-                            id='password_confirmation'
-                            type={showConfirmedPassword ? 'text' : 'password'}
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("password_confirmation", {
-                              required: "Please confirm your password",
-                              validate: value => value === password || "Passwords do not match", // Custom validation to check if passwords match
-                            })}
-                        />
-                           {/* Show/Hide Password Icon */}
-                           <button
-                          type="button"
-                          onClick={toggleConfirmedPasswordVisibility}
-                          className="absolute right-2 top-5 text-gray-500 hover:text-gray-700"
-                        >
-                          {showPassword ? (
-                            <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
-                            tabIndex={0}
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                            ></path>
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                            ></path>
-                          </svg>
-                        ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"
-                            ></path>
-                          </svg>
-                          )}
-                        </button>
-                    </div>
+          
                     {/* Role */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Role</label>
-                                  <select
+                          <select
                       {...register("role", {
                         required: "You should select a role", 
                       })}
@@ -311,9 +196,17 @@ useEffect(() => {
                       </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-primaryColor text-white rounded-md shadow hover:bg-primaryColor_2focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="flex text-center justify-center px-4 py-2 w-40 bg-primaryColor text-white rounded-md shadow hover:bg-primaryColor_2focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         >
-                            Save Changes
+                          {localLoading? 
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="h-5 w-5 animate-spin">
+                              <radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FBFFFF"></stop><stop offset=".3" stop-color="#FBFFFF" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FBFFFF" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FBFFFF" stop-opacity=".3"></stop><stop offset="1" stop-color="#FBFFFF" stop-opacity="0"></stop></radialGradient>
+                              <circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70">
+                              <animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform>
+                              </circle>
+                              <circle transform-origin="center" fill="none" opacity=".2" stroke="#FBFFFF" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle>
+                              </svg> : 
+                              'Save Changes'}
                         </button>
                     </div>
                 </form>

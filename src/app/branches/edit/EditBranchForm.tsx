@@ -17,10 +17,11 @@ interface EditBranchFormProps {
 const EditBranchForm: React.FC<EditBranchFormProps> = ({id, initialValues}) => {
   const router = useRouter();
   const [cities, setCities] = useState<City[]>()
-  console.log('initialValues', initialValues)
-  
+  const [localLoading, setLocalLoading] = useState(false);
+
   const handleEditSubmit = async (data: BranchFormValues) => {
-    console.log('data after update', data)
+    setLocalLoading(true)
+
     try {
       const updatedBranch: Omit<Branch, 'id'> = {
         ... data,
@@ -34,6 +35,9 @@ const EditBranchForm: React.FC<EditBranchFormProps> = ({id, initialValues}) => {
       router.push('/branches'); // Redirect to branches list
     } catch (error) {
       toast.error('Failed to update branch. Please try again.');
+    }
+    finally{
+      setLocalLoading(false)
     }
   };
   const branchFormFields: Field[] = [
@@ -65,7 +69,7 @@ const EditBranchForm: React.FC<EditBranchFormProps> = ({id, initialValues}) => {
       name: 'location',
       label: 'Location',
       type: 'select',
-      options: cities?.map((city) => ({ label: city.name, value: city.name })) || [],
+      options: cities?.map((city) => ({ label: city.name.en, value: city.name.en })) || [],
       validation: { required: 'Location is required' },
     },
     {
@@ -101,8 +105,9 @@ const EditBranchForm: React.FC<EditBranchFormProps> = ({id, initialValues}) => {
     heading = "Edit Branch"
     initialValues={initialValues}
     onSubmit={handleEditSubmit}
-    submitButtonLabel="Save Changes"
+    submitButtonLabel="Save"
     backNavigation = "/branches"
+    loading = {localLoading}
   />
   )
 }

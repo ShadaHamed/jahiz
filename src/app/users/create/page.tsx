@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import roleRepository from '@/apiCalls/roleRepository';
+import { useGlobal } from '../userContext';
 
 export type UserWithoutId = Omit<User, 'id'>;
  
@@ -32,8 +33,10 @@ const UserForm = () => {
     phone_number: '',
     role: '',
   });
+  const {loading, setLoading} = useGlobal();
   const { register, handleSubmit, formState: { errors }, setError, clearErrors, trigger, watch } = useForm<User>({mode: 'onTouched'});
-  
+  const[localLoading, setLocalLoading] = useState(false);
+
   useEffect(() => {
     const fetchRoles = async () => {
       try {
@@ -92,6 +95,8 @@ const UserForm = () => {
 
 // Handle form submission
 const onSubmit = async (data: User) => {
+  setLoading(true)
+  setLocalLoading(true)
   try {
     clearErrors();
 
@@ -102,6 +107,9 @@ const onSubmit = async (data: User) => {
     router.push('/users'); 
   } catch (error) {
     toast.error('Failed to create user. Please try again.');
+  } finally {
+    setLoading(false)
+    setLocalLoading(false)
   }
 };
 
@@ -191,9 +199,17 @@ const handleClick = async (direction: 'next' | 'back') => {
         <button
           type="button"
           onClick={handleSubmit(onSubmit)}
-          className="bg-primaryColor text-white text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out"
-        >
-          Submit
+          className="flex text-center justify-center bg-primaryColor text-white w-[96px] text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out"
+        > 
+        { localLoading? 
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="h-4 w-4 animate-spin">
+          <radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FBFFFF"></stop><stop offset=".3" stop-color="#FBFFFF" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FBFFFF" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FBFFFF" stop-opacity=".3"></stop><stop offset="1" stop-color="#FBFFFF" stop-opacity="0"></stop></radialGradient>
+          <circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70">
+          <animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform>
+          </circle>
+          <circle transform-origin="center" fill="none" opacity=".2" stroke="#FBFFFF" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle>
+          </svg> :
+          'Submit' }
         </button>
       )}
     </div>

@@ -26,7 +26,7 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/users"
     async createUser(user: User): Promise<User> {
       const response = await axios.post(BASE_URL, user);
       if (!response.data || response.data.length === 0) {
-        throw new Error("error creating category");
+        throw new Error("error creating user");
       }
       return response.data;
     }
@@ -35,7 +35,7 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/users"
     async updateUser(id: string, updatedData: Partial<User>): Promise<User> {
       const response = await axios.patch(`${BASE_URL}/${id}`, updatedData);
       if (!response.data || response.data.length === 0) {
-        throw new Error("error updating category");
+        throw new Error("error updating user");
       }
       return response.data;
     }

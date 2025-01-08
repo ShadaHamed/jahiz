@@ -13,7 +13,6 @@ const SearchBox = () => {
   useEffect(() => {
     setSearchText(new URLSearchParams(window.location.search).get('query') || '');
   }, []);
-console.log('search text' ,searchText)
   const formSubmitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -22,6 +21,9 @@ console.log('search text' ,searchText)
     if (searchText.trim() === '') {
       // Clear query parameter
       params.delete('query');
+      // Reset pagination
+      params.delete('pageNumber');
+      
     } else {
       // Add or update query parameter
       params.set('query', searchText.trim());
@@ -43,11 +45,11 @@ console.log('search text' ,searchText)
 
       {/* Mobile Input Box */}
       {isInputVisible && (
-        <div className="xl:hidden absolute mb-3 w-96 z-10 shadow-lg p-2 rounded-md select-text">
+        <div className="xl:hidden absolute mb-3 w-auto z-10 shadow-lg p-2 rounded-md select-text">
           <form className="relative w-full bg-none" onSubmit={formSubmitHandler}>
             <input
               type="text"
-              className="block w-full bg-gray-100 text-gray-800 px-4 py-2 rounded-md pl-10 focus:outline-none focus:shadow-md"
+              className="block w-auto bg-gray-100 text-gray-800 px-4 py-2 rounded-md pl-10 focus:outline-none focus:shadow-md"
               placeholder="Search..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}

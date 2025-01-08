@@ -15,7 +15,7 @@ const BranchTable = () => {
         columns={columns}
         data={processedBranches}
         editLink="/branches/edit"
-        isLoading={loading}  />
+        isLoading={loading} />
       <Pagination
       pageNumber={pageNumber}
       pages={pages}

@@ -16,6 +16,11 @@ interface GlobalState {
   filteredCategories: Category[];
   setFilteredCategories: (categories: Category[]) => void;
   refetchCategories: () => Promise<void>;
+  isActiveCategory: boolean; 
+  setIsActiveCategory: (value: boolean | ((prev: boolean) => boolean)) => void;
+  loading:boolean;
+  setLoading: (value: boolean | ((prev: boolean) => boolean)) => void;
+
 }
 
 const defaultState: GlobalState = {
@@ -26,7 +31,11 @@ const defaultState: GlobalState = {
   setPageNumber: () => {},
   filteredCategories: [],
   setFilteredCategories: () => {},
-  refetchCategories: async () => {}
+  refetchCategories: async () => {},
+  isActiveCategory: true,
+  setIsActiveCategory: () => {},
+  loading:true,
+  setLoading: () => {}
 };
 
 const CategoryContext = createContext<GlobalState>(defaultState);
@@ -35,6 +44,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
   const [noCategoryToastShown, setNoCategoryToastShown] = useState(false);
+  const [isActiveCategory, setIsActiveCategory] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -45,25 +56,32 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     params.set('pageNumber', page.toString());
     router.replace(`?${params.toString()}`, { scroll: false });
   };
+  useEffect(() => {
+    console.log('loading:', loading)
+  })
 
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
         const categories = await categoryRepository.getAllCategories();
-        console.log('categories', categories)
         setCategories(categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
+      }
+      finally{
+        setLoading(false)
       }
     };
 
     fetchCategories();
   }, []);
 
+
   useEffect(() => {
     const query = searchParams.get('query') || '';
     const filtered = categories.filter((category) =>
-      (category.name || '').toLowerCase().includes(query.toLowerCase())
+      (category.category_Name || '').toLowerCase().includes(query.toLowerCase())
     );
     setFilteredCategories(filtered);
     if (filtered.length === 0 && query && !noCategoryToastShown) {
@@ -81,12 +99,14 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     Math.min(startIndex + KANBAN_ITEMS_PER_PAGE, filteredCategories.length)
   );
   const refetchCategories = async () => {
+    setLoading(true);
     try {
       const updatedCategories = await categoryRepository.getAllCategories();
       setCategories(updatedCategories);
     } catch (error) {
       console.error('Error refetching categories:', error);
     }
+    setLoading(false);
   };
   
 
@@ -101,6 +121,10 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
         filteredCategories,
         setFilteredCategories,
         refetchCategories,
+        isActiveCategory,
+        setIsActiveCategory,
+        loading,
+        setLoading
       }}
     >
       {children}

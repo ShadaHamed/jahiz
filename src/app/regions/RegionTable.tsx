@@ -1,19 +1,27 @@
 'use client'
 
 import DynamicTable from '@/components/table/Table'
-import { User } from '@/utils/types'
-import { useGlobal } from '../userContext';
 import Pagination from '@/components/table/pagination';
-import userRepository from '@/apiCalls/userRepository';
+import regionRepository from '@/apiCalls/regionRepository';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
-import TableSkeleton from './TableSkeleton';
+import { useRegionGlobal } from './regionContext';
+import { number } from 'prop-types';
 
-const UserTable = () => {
 
-  const {processedUsers, pages, pageNumber,refrechUsers, loading} = useGlobal();
+
+const RegionTable = () => {
+
+  const {processedRegions, pages, pageNumber,refrechRegions, loading} = useRegionGlobal();
   const router = useRouter();
-  const columns: Array<keyof User>= ['name', 'phone_number', 'address', 'email','role'];
+
+  console.log('processedRegions', processedRegions)
+  console.log('pages', pages)
+  console.log('page num', pageNumber)
+  console.log('RegionCount', processedRegions.length)
+
+  const columns= ['english_name', 'arabic_name', 'cityName', 'status'];
+
   const deleteData: {
     type: string;
   } = {
@@ -21,53 +29,50 @@ const UserTable = () => {
   };
 
   const handleDelete = async (id: string) => {
-    const confirmed = confirm('Are you sure you want to delete this user?');
+    const confirmed = confirm('Are you sure you want to delete this region?');
     if (!confirmed) return;
 
     try {
-        await userRepository.deleteUser(id); // Call the API to delete the user
-        toast.success('User deleted successfully!');
-
+        await regionRepository.deleteRegion(id); // Call the API to delete the region
+        toast.success('Region deleted successfully!');
         const currentUrl = window.location.pathname;
         const params = new URLSearchParams(window.location.search);
 
         // Check if it's the last item on the last page
-        if (pages === pageNumber && processedUsers.length === 1) {
+        if (pages === pageNumber && processedRegions.length === 1) {
           if (pageNumber > 1) {
             params.set('pageNumber', (pageNumber - 1).toString()); // Update to the previous page
           }
           // Update the URL without reloading the page
           router.push(`${currentUrl}?${params.toString()}`);
-          await refrechUsers();
+          await refrechRegions();
         } else {
           // Reload the page to reflect the changes
           window.location.reload();
         }
         
     } catch (error) {
-        toast.error('Failed to delete user. Please try again.');
+        toast.error('Failed to delete region. Please try again.');
     }
 };
 
   return (
     <div>
-      { loading? <TableSkeleton />
-      : <DynamicTable 
+      <DynamicTable 
         columns={columns}
-        data={processedUsers}
-        editLink="/users/edit"
+        data={processedRegions}
+        editLink="/regions/edit"
         handleDelete={handleDelete} 
-         />
-      }
+        isLoading={loading} />
         
       <Pagination
         pageNumber={pageNumber}
         pages={pages}
-        route="/users"
+        route="/regions"
 
       />
     </div>
   )
 }
 
-export default UserTable
+export default RegionTable

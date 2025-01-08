@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Import icons
 import { Repository } from '@/utils/types';
 import Pagination from './pagination';
+import SkeletonTable from './SkeletonTable';
 
 //@ts-nocheck
 type DynamicTableProps<T extends Record<string, any>> = {
@@ -24,10 +25,10 @@ function DynamicTable<T extends Record<string, any>>({
 }: DynamicTableProps<T>) {
   const [filteredData, setFilteredData] = useState(data);
   const [deleting, setDeleting] = useState<string | null>(null); // Track deleting user
-  
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
+  console.log("filterd data", filteredData)
 
   // const handleDelete = async (id: string) => {
   //   const deletedItem = deleteData?.type;
@@ -48,6 +49,8 @@ function DynamicTable<T extends Record<string, any>>({
   //     setDeleting(null);
   //   }
   // };
+const tableRowsSkelton = [1,2,3,4]
+const tableColumnsSkelton = [1,2,3,4]
 
   return (
     <div className="w-full flex justify-center items-center">
@@ -56,11 +59,7 @@ function DynamicTable<T extends Record<string, any>>({
           <div className="overflow-hidden rounded-lg">
           {isLoading ? (
               // Show loading spinner or message
-              <div className="flex justify-center items-center h-32">
-                <span className="text-primaryColor text-lg font-semibold">
-                  Loading...
-                </span>
-              </div>
+              <SkeletonTable columns={columns}/>
             ): (
             <table className="min-w-full divide-y divide-gray-200 text-left rtl:text-right rounded-lg">
               <thead>

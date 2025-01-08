@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import {  IoMdCart } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
-import { FaChartBar } from "react-icons/fa";
+import { FaChartBar, FaCity  } from "react-icons/fa";
+import { GrStatusPlaceholderSmall } from "react-icons/gr";
 import { useState } from 'react';
 import Image from "next/image"
 // import profile from '../../public/profile.png';
@@ -29,7 +30,10 @@ function Sidebar() {
       {/* Menu Icon for mobile */}
       <button 
         className="fixed lg:hidden p-6 cursor-pointer z-10"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          setIsCollapsed(false)
+        }}
       >
         {/* Menu icon */}
         <MdMenu size={30}/>
@@ -38,34 +42,38 @@ function Sidebar() {
       {/* Sidebar */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`fixed left-0 top-0 h-screen z-50 ${
-          isCollapsed ? 'w-16' : 'w-64'
+        className={`fixed flex flex-col justify-between left-0 top-0 h-screen z-50  ${
+          isCollapsed ? 'w-16 items-center' : 'w-64'
         } bg-gray-200 text-darkColor transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-all duration-300 ease-in-out lg:relative lg:translate-x-0
         `}
       >
-        {/* Close Button for mobile*/}
-        <button
-        className='absolute top-4 right-4 md:hidden z-100'
-        onClick={() => setIsOpen(false)}>
-          <MdClose size={25} />
-        </button>
-
-        {/* Collaps/Expand button */}
-        <div 
-          className='m-4 flex text-center justify-between'>
-          <h4 className={`font-bold ${isCollapsed ? 'hidden' : ''}`}>LOGO</h4>
-          <button type='button'
-            className='hidden lg:block text-gray-800 bg-gray-50 rounded-lg p-2'
-            onClick={toggleSidebar}>
-            {isCollapsed ? <MdArrowForward/> : <MdArrowBack />}
+        {/* Top of sidebar */}
+        <div className='p-4'>
+           {/* Close Button for mobile*/}
+          <button
+          className='absolute top-6 right-4 lg:hidden z-100'
+          onClick={() => setIsOpen(false)}>
+            <MdClose size={25} />
           </button>
-        </div>
+
+          {/* Collaps/Expand button */}
+          <div 
+            className='p-4 flex text-center justify-between'>
+            <h4 className={`font-bold ${isCollapsed ? 'hidden' : ''}`}>LOGO</h4>
+            <button type='button'
+              className='hidden lg:block text-gray-800 bg-gray-50 rounded-lg p-2'
+              onClick={toggleSidebar}>
+              {isCollapsed ? <MdArrowForward/> : <MdArrowBack />}
+            </button>
+          </div>
+        
+       
         
         {/* Sidebar content */}
         <div className="p-4 space-y-4">
-          <h4 className={`text-gray-700 font-bold ${isCollapsed ? 'hidden' : ''}`}>MARKETING</h4>
+          <h4 className={`text-gray-700 font-bold mb-1 ${isCollapsed ? 'hidden' : ''}`}>MARKETING</h4>
         
             <Link href="/admin/dashboard" passHref>
               <div className={`flex items-center p-2 rounded-md ${isCollapsed ? 'justify-center' : ''} ${pathname === '/admin/dashboard' ? 'bg-primaryColor text-white': ''}`}               
@@ -82,6 +90,22 @@ function Sidebar() {
                  onClick={() => setIsOpen(false)}>
                 <IoMdCart className='text-[#a75ff0]'/>
               {!isCollapsed && <span className="ml-2"> Branches </span>}
+            </div>
+          </Link>
+
+          <Link href="/cities">
+            <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/cities' ? 'bg-primaryColor text-white': ''}`}
+                 onClick={() => setIsOpen(false)}>
+                <FaCity className='text-[#a75ff0]'/>
+              {!isCollapsed && <span className="ml-2"> Cities </span>}
+            </div>
+          </Link>
+
+          <Link href="/regions">
+            <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/regions' ? 'bg-primaryColor text-white': ''}`}
+                 onClick={() => setIsOpen(false)}>
+                <GrStatusPlaceholderSmall className='text-[#a75ff0]'/>
+              {!isCollapsed && <span className="ml-2"> Regions </span>}
             </div>
           </Link>
           
@@ -113,22 +137,28 @@ function Sidebar() {
           </Link> : ""}
 
         </div>
+        </div>
+          
+          {/* Bottom of sidebar */}
+        <div className='mb-2 p-4'>
+          {isAuthenticated && (
+          <div className={`flex text-xs gap-2 mt-20 p-2 ${isCollapsed ? 'text-center' : ''}`}>
+              <Image src="/profile.png" alt="User Profile" width={35} height={35}/>
+              <div className={`flex flex-col gap-2 ${isCollapsed ? 'hidden' : ''}`}>
+                  <span className='font-bold'>{user?.name.en}</span>
+                  <span className='text-gray-600'>Admin Manager</span>
+              </div>
+          </div>)}
 
-        {isAuthenticated && (<div className={`flex text-xs gap-2 mt-20 p-2 ${isCollapsed ? 'text-center' : ''}`}>
-            <Image src="/profile.png" alt="User Profile" width={35} height={35}/>
-            <div className={`flex flex-col gap-2 ${isCollapsed ? 'hidden' : ''}`}>
-                <span className='font-bold'>{user?.name.en}</span>
-                <span className='text-gray-600'>Admin Manager</span>
-            </div>
-        </div>)}
-
-        {isAuthenticated && (<div className={`flex items-center mt-15 mx-4 p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}>
-        <button className='flex'
-                onClick={logout}>
-          <MdLogout />
-          {!isCollapsed && <span className="ml-2 text-sm"> Logout </span>}
-        </button>
-        </div>)}
+          {isAuthenticated && (
+          <div className={`flex items-center mt-21 mx-4 mb-4 px-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}>
+          <button className='flex ml-6'
+                  onClick={logout}>
+            <MdLogout />
+            {!isCollapsed && <span className="ml-2 text-sm"> Logout </span>}
+          </button>
+          </div>)}
+        </div>
         
 
        

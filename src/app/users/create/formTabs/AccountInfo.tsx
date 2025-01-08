@@ -57,7 +57,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
               // },
             })}
             placeholder='Password'
-            className='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+            className='p-1 px-2 appearance-none outline-none w-full text-gray-800 text-xs'
             onChange={ () => {
               // handleChange(e)
               clearErrors("password")
@@ -76,7 +76,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
+          className="h-5 w-5 select-none cursor-pointer absolute top-1 right-2"
           tabIndex={0}
         >
           <path
@@ -97,7 +97,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
+          className="h-5 w-5 select-none cursor-pointer absolute top-1 right-2"
         >
           <path
             stroke-linecap="round"
@@ -124,7 +124,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
             })}
             name="password_confirmation"
             placeholder='Confirm your password'
-            className='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+            className='p-1 px-2 appearance-none outline-none w-full text-gray-800 text-xs'
             onChange={ () => {
               // handleChange(e)
               clearErrors("password_confirmation")
@@ -143,7 +143,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
+          className="h-5 w-5 select-none cursor-pointer absolute top-1 right-2"
           tabIndex={0}
         >
           <path
@@ -164,7 +164,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="w-6 select-none cursor-pointer h-6 absolute top-2 right-2"
+          className="h-5 w-5 select-none cursor-pointer absolute top-1 right-2"
         >
           <path
             stroke-linecap="round"
@@ -187,7 +187,7 @@ const AccountInfo: React.FC<AccountInfoProps<User>> = ({ register, errors, setEr
       {...register("role", {
         required: "You should select a role",
       })}
-      className="p-1 px-2 appearance-none outline-none w-full text-gray-800"
+      className="p-1 px-2 appearance-none outline-none w-full text-gray-800 text-xs"
       defaultValue=""
       onChange={() => {
         clearErrors("role");

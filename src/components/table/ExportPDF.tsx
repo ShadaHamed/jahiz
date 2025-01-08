@@ -58,7 +58,7 @@ const ExportPDF: React.FC<ExportPDFProps> = ({ contentRef }) => {
       {/* Button for medium and larger screens */}
       <button
         onClick={exportPDF}
-        className="hidden xl:block py-3 rounded-md text-sm text-darkColor focus:shadow-md cursor-pointer active:bg-primaryColor active:text-white"
+        className="hidden xl:block py-3 rounded-md text-sm text-darkColor cursor-pointer"
       >
         Export
       </button>

@@ -25,7 +25,7 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/cities"
     async createCity(city: City): Promise<City> {
       const response = await axios.post(BASE_URL, city);
       if (!response.data || response.data.length === 0) {
-        throw new Error("error creating category");
+        throw new Error("error creating city");
       }
       return response.data;
     }
@@ -34,7 +34,7 @@ const BASE_URL = "https://json-server-app-zwl3.onrender.com/cities"
     async updateCity(id: string, updatedData: Partial<City>): Promise<City> {
       const response = await axios.patch(`${BASE_URL}/${id}`, updatedData);
       if (!response.data || response.data.length === 0) {
-        throw new Error("error updating category");
+        throw new Error("error updating city");
       }
       return response.data;
     }

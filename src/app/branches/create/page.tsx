@@ -13,6 +13,8 @@ const BranchForm = () => {
   const [cities, setCities] = useState<City[]>()
   const router = useRouter();
   const {refetchBranches, filteredBranches, setFilteredBranches} = useGlobal();
+  const [localLoading, setLocalLoading] = useState(false);
+   
  // Define form fields
   const branchFormFields: Field[] = [
   {
@@ -43,7 +45,7 @@ const BranchForm = () => {
     name: 'location',
     label: 'Location',
     type: 'select',
-    options: cities?.map((city) => ({ label: city.name, value: city.name })) || [],
+    options: cities?.map((city) => ({ label: city.name.en, value: city.name.en })) || [],
     validation: { required: 'Location is required' },
   },
   {
@@ -75,6 +77,7 @@ useEffect(() => {
 
 // Handle form submission
 const handleSubmit = async(data: {english_branch_Name: string; arabic_branch_Name: string; location: string; status: string }) => {
+  setLocalLoading(true)
   try {
 
     const newBranch = {
@@ -91,11 +94,14 @@ const handleSubmit = async(data: {english_branch_Name: string; arabic_branch_Nam
     const updatedBranches = [...filteredBranches, createdBranch];
     setFilteredBranches(updatedBranches) 
     router.refresh();
-    refetchBranches();
+    await refetchBranches();
     router.push('/branches'); // Redirect to branches page
   
   } catch (error) {
     toast.error('Failed to create branch. Please try again.');
+  }
+  finally{
+    setLocalLoading(false)
   }
 };
 
@@ -108,6 +114,7 @@ const handleSubmit = async(data: {english_branch_Name: string; arabic_branch_Nam
         onSubmit={handleSubmit}
         submitButtonLabel="ADD"
         backNavigation = "/branches"
+        loading= {localLoading}
       />
     </div>
   )

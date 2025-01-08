@@ -21,6 +21,7 @@ interface GlobalState {
   setSelectedLocation:(location: string) => void;
   refetchBranches: () => Promise<void>;
   loading: boolean;
+  setLoading: (value: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 const defaultState: GlobalState = {
@@ -36,7 +37,8 @@ const defaultState: GlobalState = {
   selectedLocation: "All Locations",
   setSelectedLocation:() => {},
   refetchBranches: async () => {},
-  loading:true
+  loading:true,
+  setLoading: () => {}
 };
 
 const GlobalContext = createContext<GlobalState>(defaultState);
@@ -70,6 +72,7 @@ const searchParams = useSearchParams();
   useEffect(() => {
     // Fetch branches when the component mounts
     const fetchBranches = async () => {
+      setLoading(true)
       try {
         const branches = await branchRepository.getAllBranches();  // Fetch branches from the repository
         setBranches(branches);  // Set the fetched branches as default value
@@ -77,6 +80,9 @@ const searchParams = useSearchParams();
         setLoading(false);
       } catch (error) {
         console.error('Error fetching branches:', error);
+      }
+      finally{
+        setLoading(false)
       }
     };
 
@@ -88,12 +94,21 @@ const searchParams = useSearchParams();
 
   // Initialize filteredBranches with all branches once fetched
   useEffect(() => {
-    setFilteredBranches(branches);
-    router.refresh();
+    setLoading(true);
+    try {
+      setFilteredBranches(branches);
+      router.refresh();
+    } catch (error) {
+      console.error('Error fetching branches:', error);
+    } finally {
+      setLoading(true);
+    }
+    
   }, [branches]);
 
   useEffect(() => {
     const query = searchParams.get('query') || '';
+    if(query) setLoading(true)
     const locationFilter = selectedLocation; // Get the currently selected location filter
 
     // Combine search and filter logic
@@ -106,11 +121,12 @@ const searchParams = useSearchParams();
       const matchesLocation = locationFilter
         ? branch.location === locationFilter
         : true;
-  
+      
       return matchesSearch && matchesLocation;
     });
   
     setFilteredBranches(filtered);
+    setLoading(false)
   }, [branches, searchParams, selectedLocation]);
   
 
@@ -124,12 +140,16 @@ const searchParams = useSearchParams();
     //   }
     // }, [searchedBranches, query, noBranchToastShown]);
     const refetchBranches = async () => {
+      setLoading(true)
       try {
         const updatedBranches = await branchRepository.getAllBranches();
         setBranches(updatedBranches);
         setFilteredBranches(updatedBranches);
       } catch (error) {
         console.error('Error refetching branches:', error);
+      }
+      finally{
+        setLoading(false)
       }
     };
     
@@ -161,7 +181,8 @@ const searchParams = useSearchParams();
       selectedLocation,
       setSelectedLocation,
       refetchBranches,
-      loading
+      loading,
+      setLoading,
     }}>
       {children}
     </GlobalContext.Provider>
