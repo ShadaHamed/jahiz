@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import SearchBox from '@/components/table/SearchBox';
 import { FilteredCategories } from './view/FilteredCategories ';
 import ExportPDF from '@/components/table/ExportPDF';
@@ -10,6 +10,7 @@ const CategoriesPage = () => {
     const contentRef = useRef<HTMLDivElement>(null);
     
     return (
+      <Suspense>
       <GlobalProvider>
       <div className="overflow-hidden ref={contentRef}">
       <div className="w-full p-6 flex flex-col items-center md:flex-row md:justify-between">
@@ -32,6 +33,7 @@ const CategoriesPage = () => {
           </div>
     </div>
     </GlobalProvider>
+    </Suspense>
     );
 }
 
