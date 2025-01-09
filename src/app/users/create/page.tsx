@@ -141,81 +141,116 @@ const handleClick = async (direction: 'next' | 'back') => {
 
 
   return (
-    <div className=" p-2 items-center justify-center max-h-lg mx-auto  ">
-      {/* <div className='flex flex-row md:h-[100%] md:w-[50%] left-[40%]'> */}
-     
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='mx-auto shadow-xl rounded-2xl pb-2 bg-white mt-4 w-[600px]'>
-        <h1 className="bg-primaryColor text-white text-2xl font-bold p-4 rounded-t-2xl uppercase text-center">Add New User</h1>
-        {/* stepper */}
-        <div className='container horizontal mt-3'>
-          <Stepper steps={steps} currentStep={currentStep}/>
-        {/* Display Components */}
-        <div className='container my-2 p-5 max-w-full max-h-full overflow-hide'>
-          {displaySteps(currentStep)}
-        </div>
-        
-        </div>
-        
-        {/* navigation control */}
-        {/* {currentStep <= steps.length && 
-          <StepperController
-          handleClick={handleClick} 
-          currentStep={currentStep}
-          steps={steps}/>
-        } */}
-        <div className="container flex justify-around mb-4">
-        {/* Cancel Button */}
-      <button
-        type="button"
-        onClick={() => router.push('/users')}
-        className={`bg-white text-primaryColor text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer border-2 border-primaryColor  hover:text-white hover:bg-primaryColor transition duration-200 ease-in-out        }`}
-      >
-        Cancel
-      </button>
-      {/* Back Button */}
-      <button
-        type="button"
-        onClick={() => handleClick("back")}
-        className={`bg-white text-primaryColor text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer border-2 border-primaryColor transition duration-200 ease-in-out ${
-          currentStep === 1 ? "opacity-50 cursor-not-allowed  pointer-events-none" : " hover:bg-primaryColor hover:text-white "
-        }`}
-        disabled={currentStep === 1}
-      >
-        Back
-      </button>
+    <div className="p-4 items-center justify-center mx-auto max-w-full">
+  <form
+    onSubmit={handleSubmit(onSubmit)}
+    className="mx-auto shadow-xl rounded-2xl bg-white mt-4 max-w-lg md:max-w-xl lg:max-w-2xl p-4 sm:p-6 md:p-8">
+    <h1 className="bg-primaryColor text-white text-lg sm:text-xl md:text-2xl font-bold p-4 rounded-t-2xl uppercase text-center">
+      Add New User
+    </h1>
 
-      {/* Next or Submit Button */}
-      {currentStep < steps.length ? (
-        <button
-          type="button"
-          onClick={() => handleClick("next")}
-          className="bg-primaryColor text-white text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out"
-        >
-          Next
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={handleSubmit(onSubmit)}
-          className="flex text-center justify-center bg-primaryColor text-white w-[96px] text-xs uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out"
-        > 
-        { localLoading? 
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="h-4 w-4 animate-spin">
-          <radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FBFFFF"></stop><stop offset=".3" stop-color="#FBFFFF" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FBFFFF" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FBFFFF" stop-opacity=".3"></stop><stop offset="1" stop-color="#FBFFFF" stop-opacity="0"></stop></radialGradient>
-          <circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70">
-          <animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform>
-          </circle>
-          <circle transform-origin="center" fill="none" opacity=".2" stroke="#FBFFFF" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle>
-          </svg> :
-          'Submit' }
-        </button>
-      )}
+    {/* Stepper */}
+    <div className="container horizontal mt-3">
+      <Stepper steps={steps} currentStep={currentStep} />
     </div>
-      
-      </form>
-      </div>
+
+    {/* Display Components */}
+    <div className="container my-4 p-4 sm:p-6 max-w-full max-h-full overflow-hidden">
+      {displaySteps(currentStep)}
+    </div>
+
+    {/* Navigation Controls */}
+    <div className="container flex flex-col md:flex-row justify-around gap-4 mb-4">
+  {/* Cancel Button */}
+  <button
+    type="button"
+    onClick={() => router.push('/users')}
+    className="bg-white text-primaryColor text-xs uppercase py-1 px-2 rounded-lg font-semibold cursor-pointer border border-primaryColor hover:text-white hover:bg-primaryColor transition duration-200 ease-in-out">
+    Cancel
+  </button>
+
+  {/* Back Button */}
+  <button
+    type="button"
+    onClick={() => handleClick("back")}
+    className={`bg-white text-primaryColor text-xs uppercase py-1 px-4 rounded-lg font-semibold cursor-pointer border border-primaryColor transition duration-200 ease-in-out ${
+      currentStep === 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-primaryColor hover:text-white"
+    }`}
+    disabled={currentStep === 1}>
+    Back
+  </button>
+
+  {/* Next or Submit Button */}
+  {currentStep < steps.length ? (
+    <button
+      type="button"
+      onClick={() => handleClick("next")}
+      className="bg-primaryColor text-white text-xs uppercase py-2 px-5 rounded-lg font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out">
+      Next
+    </button>
+  ) : (
+    <button
+      type="button"
+      onClick={handleSubmit(onSubmit)}
+      className="flex justify-center items-center bg-primaryColor text-white w-auto md:w-[90px] text-xs uppercase py-2 px-4 rounded-lg font-semibold cursor-pointer hover:bg-primaryColor_2 transition duration-200 ease-in-out">
+      {localLoading ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 200"
+          className="h-4 w-4 animate-spin">
+          <radialGradient
+            id="a12"
+            cx=".66"
+            fx=".66"
+            cy=".3125"
+            fy=".3125"
+            gradientTransform="scale(1.5)">
+            <stop offset="0" stopColor="#FBFFFF"></stop>
+            <stop offset=".3" stopColor="#FBFFFF" stopOpacity=".9"></stop>
+            <stop offset=".6" stopColor="#FBFFFF" stopOpacity=".6"></stop>
+            <stop offset=".8" stopColor="#FBFFFF" stopOpacity=".3"></stop>
+            <stop offset="1" stopColor="#FBFFFF" stopOpacity="0"></stop>
+          </radialGradient>
+          <circle
+            fill="none"
+            stroke="url(#a12)"
+            strokeWidth="15"
+            strokeLinecap="round"
+            strokeDasharray="200 1000"
+            strokeDashoffset="0"
+            cx="100"
+            cy="100"
+            r="70">
+            <animateTransform
+              type="rotate"
+              attributeName="transform"
+              calcMode="spline"
+              dur="2"
+              values="360;0"
+              keyTimes="0;1"
+              keySplines="0 0 1 1"
+              repeatCount="indefinite"></animateTransform>
+          </circle>
+          <circle
+            fill="none"
+            opacity=".2"
+            stroke="#FBFFFF"
+            strokeWidth="15"
+            strokeLinecap="round"
+            cx="100"
+            cy="100"
+            r="70"></circle>
+        </svg>
+      ) : (
+        "Submit"
+      )}
+    </button>
+  )}
+</div>
+
+  </form>
+</div>
+
     // </div>
 
   )

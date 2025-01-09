@@ -18,40 +18,40 @@ interface EditCustomerFormProps {
   initialValues: UserFormValues;
 }
 
-const EditCustomerForm: React.FC<EditCustomerFormProps> = ({id, initialValues}) => {
+const EditCustomerForm: React.FC<EditCustomerFormProps> = ({ id, initialValues }) => {
   const [roles, setRoles] = useState<Role[]>([]);
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors }, setError, clearErrors, watch ,setValue} = useForm<UserFormValues>({
+  const { register, handleSubmit, formState: { errors }, setError, clearErrors, watch, setValue } = useForm<UserFormValues>({
     mode: 'onSubmit', // Validation will trigger only after form submit;
     defaultValues: initialValues,
   })
   const password = watch("password");
 
-const [showPassword, setShowPassword] = useState(false);
-const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
-const { loading, setLoading} = useGlobal();
-const [localLoading, setLocalLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
+  const { loading, setLoading } = useGlobal();
+  const [localLoading, setLocalLoading] = useState(false);
 
-const togglePasswordVisibility = () => {
-  setShowPassword((prevState) => !prevState);
-}; 
-const toggleConfirmedPasswordVisibility = () => {
-  setShowConfirmedPassword((prevState) => !prevState);
-}; 
-
-useEffect(() => {
-  const fetchRoles = async () => {
-    try {
-      const data = await roleRepository.getAllRoles();
-      setRoles(data); // Update roles state with the fetched data
-    } catch (error) {
-      console.error('Error fetching roles:', error);
-    }
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+  const toggleConfirmedPasswordVisibility = () => {
+    setShowConfirmedPassword((prevState) => !prevState);
   };
 
-  fetchRoles();
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const data = await roleRepository.getAllRoles();
+        setRoles(data); // Update roles state with the fetched data
+      } catch (error) {
+        console.error('Error fetching roles:', error);
+      }
+    };
 
-}, []);
+    fetchRoles();
+
+  }, []);
 
   const handleEditSubmit = async (data: UserFormValues) => {
     setLoading(true)
@@ -59,7 +59,7 @@ useEffect(() => {
     try {
       await userRepository.updateUser(id, data);
       toast.success('user data updated successfully!');
-      router.push('/users'); 
+      router.push('/users');
     } catch (error) {
       console.error('Error updating customer information:', error);
       toast.error('Failed to update data. Please try again.');
@@ -72,146 +72,138 @@ useEffect(() => {
   const handleChange = (field: keyof UserFormValues, value: string) => {
     setValue(field, value); // Dynamically update field value
   };
-  
+
 
   return (
-  //   <ReusableForm<User>
-  //   fields= {userFormFields}
-  //   initialValues={initialValues}
-  //   onSubmit={handleEditSubmit}
-  //   submitButtonLabel="Save Changes"
-  // />
-  <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
-            <div className="bg-white w-full max-w-4xl rounded-lg shadow-md p-8">
-                <h1 className="text-2xl font-semibold bg-primaryColor text-white p-4 mb-6 rounded-t-xl">Edit User Information</h1>
-                <form onSubmit={handleSubmit(handleEditSubmit)} className="space-y-6">
-                    {/* Name */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Name (English)</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("name.en", { 
-                              required: "Name in English is required" ,
-                              pattern: {
-                                value: /^[a-zA-Z\s-]+$/,
-                                message: "Name in English must contain only English letters"
-                              }
-                            })}
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Name (Arabic)</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("name.ar", { 
-                              required: "Name in Arabic is required" ,
-                              pattern: {
-                                value: /^[\u0621-\u064A\u0617-\u061A\u064B-\u0652\s]+$/,
-                                message: "Name in Arabic must contain only Arabic letters"
-                              }
-                            })}
-                        />
-                    </div>
-                    {/* Phone Number */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input
-                            type="tel"
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("phone_number", {
-                              required: "Phone number is required",
-                              pattern: {
-                                value: /^\+?[0-9]*$/,
-                                message: "Phone must contain only numbers",
-                              },
-                              minLength: {
-                                value: 10,
-                                message: "Phone number must be at least 10 digits",
-                              },
-                              maxLength: {
-                                value: 15,
-                                message: "Phone number cannot exceed 15 digits",
-                              },
-                            })}
-                        />
-                    </div>
-                    {/* Address */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Address</label>
-                        <input
-                            type="text"
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register ("address", {required: "Address is requied"})}
-                        />
-                    </div>
-                    {/* Email */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
-                        <input
-                            type="email"
-                            className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                            {...register("email", { 
-                              required: "Email is required",
-                              pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Email validation pattern
-                                message: "Email should contain an '@' symbol and a domain name (e.g., example@domain.com)", 
-                              }
-                            })}
-                        />
-                    </div>
-          
-                    {/* Role */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Role</label>
-                          <select
-                      {...register("role", {
-                        required: "You should select a role", 
-                      })}
-                      className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
-                      defaultValue=""
-                      onChange={() => 
-                        {
-                        clearErrors("role");}
-                      } 
-                    >
-                      <option value="" disabled>
-                        Select a role
-                      </option>
-                      {roles.map((role) => (
-                        <option key={role.id} value={role.id}>
-                          {role.name}
-                        </option>
-                      ))}
-                    </select>
-                    </div>
-                    {/* Submit Button */}
-                    <div className="flex justify-end gap-2">
-                      <button 
-                        type='button'
-                        onClick={() => router.push('/users')}
-                        className='px-4 py-2 w-full md:w-[90px] bg-white text-gray-600 text-xs uppercase rounded-md font-medium cursor-pointer border-2 border-slate-300 hover:bg-gray-200 hover:text-gray-500 transition duration-200 ease-in-out'>
-                        Cancel
-                      </button>
-                        <button
-                            type="submit"
-                            className="flex text-center justify-center px-4 py-2 w-40 bg-primaryColor text-white rounded-md shadow hover:bg-primaryColor_2focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
-                          {localLoading? 
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="h-5 w-5 animate-spin">
-                              <radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FBFFFF"></stop><stop offset=".3" stop-color="#FBFFFF" stop-opacity=".9"></stop><stop offset=".6" stop-color="#FBFFFF" stop-opacity=".6"></stop><stop offset=".8" stop-color="#FBFFFF" stop-opacity=".3"></stop><stop offset="1" stop-color="#FBFFFF" stop-opacity="0"></stop></radialGradient>
-                              <circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70">
-                              <animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform>
-                              </circle>
-                              <circle transform-origin="center" fill="none" opacity=".2" stroke="#FBFFFF" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle>
-                              </svg> : 
-                              'Save Changes'}
-                        </button>
-                    </div>
-                </form>
+    <div className="min-h-screen bg-gray-50 p-4 flex items-center justify-center">
+      <div className="bg-white w-full max-w-xl md:max-w-2xl lg:max-w-4xl rounded-lg shadow-md p-4 sm:p-8">
+        <h1 className="text-2xl font-semibold bg-primaryColor text-white p-4 mb-6 rounded-t-xl">Edit User Information</h1>
+        <form onSubmit={handleSubmit(handleEditSubmit)} className="space-y-4 sm:space-y-6">
+          {/* <div className="grid grid-cols-full sm:grid-cols-2 gap-4"> */}
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Name (English)</label>
+              <input
+                type="text"
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                {...register("name.en", {
+                  required: "Name in English is required",
+                  pattern: {
+                    value: /^[a-zA-Z\s-]+$/,
+                    message: "Name in English must contain only English letters"
+                  }
+                })}
+              />
             </div>
-        </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Name (Arabic)</label>
+              <input
+                type="text"
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                {...register("name.ar", {
+                  required: "Name in Arabic is required",
+                  pattern: {
+                    value: /^[\u0621-\u064A\u0617-\u061A\u064B-\u0652\s]+$/,
+                    message: "Name in Arabic must contain only Arabic letters"
+                  }
+                })}
+              />
+            </div>
+            {/* Phone Number */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+              <input
+                type="tel"
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                {...register("phone_number", {
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^\+?[0-9]*$/,
+                    message: "Phone must contain only numbers",
+                  },
+                  minLength: {
+                    value: 10,
+                    message: "Phone number must be at least 10 digits",
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: "Phone number cannot exceed 15 digits",
+                  },
+                })}
+              />
+            </div>
+            {/* Address */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Address</label>
+              <input
+                type="text"
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                {...register("address", { required: "Address is requied" })}
+              />
+            </div>
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Email validation pattern
+                    message: "Email should contain an '@' symbol and a domain name (e.g., example@domain.com)",
+                  }
+                })}
+              />
+            </div>
+
+            {/* Role */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Role</label>
+              <select
+                {...register("role", {
+                  required: "You should select a role",
+                })}
+                className="mt-1 p-2 bg-gray-100 block w-full focus:shadow-sm focus:border focus:border-primaryColor appearance-none sm:text-sm"
+                defaultValue=""
+                onChange={() => {
+                  clearErrors("role");
+                }
+                }
+              >
+                <option value="" disabled>
+                  Select a role
+                </option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {role.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+          {/* Submit Button */}
+          <div className="flex flex-col md:flex-row justify-end gap-4">
+            <button
+              type="button"
+              onClick={() => router.push('/users')}
+              className="px-4 py-2 bg-white text-gray-600 text-xs uppercase rounded-md font-medium border-2 border-slate-300 hover:bg-gray-200 hover:text-gray-500 transition duration-200 ease-in-out">
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex justify-center items-center px-4 py-2 w-full md:w-auto bg-primaryColor text-white rounded-md shadow hover:bg-primaryColor_2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              {localLoading ? (
+                <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                  {/* Spinner */}
+                </svg>
+              ) : 'Save Changes'}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
   )
 }
 

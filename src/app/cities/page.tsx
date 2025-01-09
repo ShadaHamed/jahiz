@@ -19,11 +19,11 @@ function cityPage() {
               Cities
             </h2>
 
-            <div className='flex lg:justify-between items-center my-8'>
+            <div className='flex xl:justify-between items-center my-8'>
               <div>
                 <SearchBox/>
               </div>
-              <div className="w-full lg:w-40 flex items-center justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
+              <div className="xl:w-40 flex items-center justify-center xl:bg-gray-100 lg:px-4 xl:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
                 <ExportPDF contentRef={contentRef} />
               </div>
             </div>

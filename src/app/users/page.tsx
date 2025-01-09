@@ -20,7 +20,6 @@ const UsersPage = () => {
   useEffect(() => {
     setIsHydrated(true); // Indicates that the component has mounted
     const savedView = sessionStorage.getItem("selectedView") || "table";
-    console.log('Saved view (useEffect):', savedView);
     setView(savedView);
   }, []);
 
@@ -47,16 +46,16 @@ const UsersPage = () => {
               Users
             </h2>
 
-            <div className='flex lg:justify-between items-center my-8'>
-              <div className='flex items-center justify-center gap-2'>
+            <div className='flex xl:justify-between items-center my-8 gap-2'>
+              <div className='flex justify-center items-center gap-2'>
                 <div>
-                  <SearchBox />
+                  <SearchBox/>
                 </div>
-                <div className="w-full lg:w-40 flex items-center justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md focus:shadow-md active:bg-primaryColor active:text-white">
+                <div className="xl:w-40 flex items-center justify-center xl:bg-gray-100 xl:px-4 xl:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
                   <ExportPDF contentRef={contentRef} />
                 </div>
               </div>
-              <div className='flex justify-between gap-1 cursor-pointer'>
+              <div className='flex iems-center justify-center gap-2 cursor-pointer'>
                 <button
                   className='bg-primaryColor text-white p-2 rounded-s-md'
                   onClick={() => handleViewChange('kanban')}>

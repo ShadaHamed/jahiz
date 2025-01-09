@@ -77,13 +77,12 @@ const searchParams = useSearchParams();
         const branches = await branchRepository.getAllBranches();  // Fetch branches from the repository
         setBranches(branches);  // Set the fetched branches as default value
         setBranchCount(branches.length)
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching branches:', error);
-      }
-      finally{
+      } finally {
         setLoading(false)
       }
+      
     };
 
     fetchBranches(); 
@@ -94,21 +93,17 @@ const searchParams = useSearchParams();
 
   // Initialize filteredBranches with all branches once fetched
   useEffect(() => {
-    setLoading(true);
     try {
       setFilteredBranches(branches);
       router.refresh();
     } catch (error) {
       console.error('Error fetching branches:', error);
-    } finally {
-      setLoading(true);
     }
     
   }, [branches]);
 
   useEffect(() => {
     const query = searchParams.get('query') || '';
-    if(query) setLoading(true)
     const locationFilter = selectedLocation; // Get the currently selected location filter
 
     // Combine search and filter logic
@@ -126,9 +121,9 @@ const searchParams = useSearchParams();
     });
   
     setFilteredBranches(filtered);
-    setLoading(false)
   }, [branches, searchParams, selectedLocation]);
   
+  const query = searchParams.get('query') || '';
 
     // // Show toast notification if no branches match
     // useEffect(() => {
@@ -156,7 +151,10 @@ const searchParams = useSearchParams();
     // Pagination logic for tabel
     const pages = Math.ceil(filteredBranches.length / ITEMS_PER_PAGE);
     const startIndex = (pageNumber - 1) * ITEMS_PER_PAGE;
-    const currentPageBranches = filteredBranches.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const currentPageBranches = query 
+                     ? filteredBranches // Show all filtered users during search
+                     : filteredBranches.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    
 
     
   const processedBranches = (currentPageBranches || []).map(branch => {

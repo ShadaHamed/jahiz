@@ -1,7 +1,7 @@
 
 export default function SkeletonTable ({ columns }: { columns: any[] }) {
     return (
-      <table className="min-w-full divide-y divide-gray-200 text-left rtl:text-right rounded-lg">
+      <table className="min-w-full h-[30vh] divide-y divide-gray-200 text-left rtl:text-right rounded-lg">
         <thead>
           <tr className="bg-primaryColor">
             {columns.map((column, index) => (
@@ -40,6 +40,7 @@ export default function SkeletonTable ({ columns }: { columns: any[] }) {
               </td>
             </tr>
           ))}
+
         </tbody>
       </table>
     );

@@ -5,6 +5,7 @@ import BranchTable from './BranchTable';
 import { GlobalProvider, useGlobal } from './Context';
 import React, {  Suspense, useRef } from 'react';
 import TableTools from '@/components/table/TableTools';
+import TableSkeleton from '../users/views/TableSkeleton';
 
 const BranchContent = ( ) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,7 @@ const BranchContent = ( ) => {
 const BranchPage = () => {
   return (
     <GlobalProvider>
-      <Suspense>
+      <Suspense fallback={<TableSkeleton />}>
       <BranchContent />
       </Suspense>
     </GlobalProvider>

@@ -1,7 +1,6 @@
 'use client'
 
 import DynamicTable from '@/components/table/Table'
-import { Role, User } from '@/utils/types'
 import { useCityGlobal } from './cityContex';
 import Pagination from '@/components/table/pagination';
 import cityRepository from '@/apiCalls/cityRepository';

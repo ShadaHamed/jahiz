@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'; // Import icons
-import { Repository } from '@/utils/types';
-import Pagination from './pagination';
+
 import SkeletonTable from './SkeletonTable';
 
 //@ts-nocheck
@@ -28,29 +27,6 @@ function DynamicTable<T extends Record<string, any>>({
   useEffect(() => {
     setFilteredData(data);
   }, [data]);
-  console.log("filterd data", filteredData)
-
-  // const handleDelete = async (id: string) => {
-  //   const deletedItem = deleteData?.type;
-  //   const confirmed = confirm(`Are you sure you want to delete this ${deletedItem}?`);
-  //   if (!confirmed) return;
-
-  //   try {
-  //     setDeleting(id); // Show loading state for the specific row
-  //     await deleteData?.repository.deleteUser(id); // Replace with your delete API call
-  //     alert(`${deletedItem} deleted successfully!`);
-  //     setFilteredData((prevData) =>
-  //       prevData.filter((item) => item.id !== id)
-  //     ); // Remove user from the table
-  //   } catch (error) {
-  //     console.error(`Error deleting ${deletedItem}:`, error);
-  //     alert(`Failed to delete ${deletedItem}. Please try again.`);
-  //   } finally {
-  //     setDeleting(null);
-  //   }
-  // };
-const tableRowsSkelton = [1,2,3,4]
-const tableColumnsSkelton = [1,2,3,4]
 
   return (
     <div className="w-full flex justify-center items-center">
@@ -59,6 +35,7 @@ const tableColumnsSkelton = [1,2,3,4]
           <div className="overflow-hidden rounded-lg">
           {isLoading ? (
               // Show loading spinner or message
+              
               <SkeletonTable columns={columns}/>
             ): (
             <table className="min-w-full divide-y divide-gray-200 text-left rtl:text-right rounded-lg">

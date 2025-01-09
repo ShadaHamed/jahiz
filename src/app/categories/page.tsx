@@ -13,24 +13,24 @@ const CategoriesPage = () => {
       <Suspense>
       <GlobalProvider>
       <div className="overflow-hidden ref={contentRef}">
-      <div className="w-full p-6 flex flex-col items-center md:flex-row md:justify-between">
+      <div className="w-full fix p-6 items-center justify-center md:justify-start">
         <h1 className="font-bold text-2xl mx-auto text-center lg:text-start lg:text-3xl">
           Categories
-        </h1>
-        
-      </div>
-      <div className=' flex px-6 items-center justify-between '>
+        </h1>   
+        <div className='flex xl:justify-between items-center my-8'>
         <div>
           <SearchBox/>
         </div>
-        <div className="w-full lg:w-40 flex items-center justify-center lg:bg-gray-100 lg:px-4 lg:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
+        <div className="xl:w-40 flex items-center justify-center xl:bg-gray-100 xl:px-4 xl:rounded-md focus:shadow-md  active:bg-primaryColor active:text-white">
           <ExportPDF contentRef={contentRef} />
         </div>
-        
       </div>
-          <div ref={contentRef}>
-            <FilteredCategories />
-          </div>
+       
+      </div>
+
+      <div ref={contentRef}>
+        <FilteredCategories />
+      </div>
     </div>
     </GlobalProvider>
     </Suspense>
