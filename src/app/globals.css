@@ -10,6 +10,9 @@
   --secondaryColor: #CCCCCC ;
   --darkColor: #333333 ;
 }
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: Tajawal;

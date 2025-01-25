@@ -66,7 +66,6 @@ const CreateCategory = () => {
 useEffect (() => {
   setLoading(false);
   setLocalLoading(false);
-  console.log('loading: ', loading)
 }, [])
 
 // Handle form submission
@@ -80,6 +79,7 @@ useEffect (() => {
       // Ensure the image is appended correctly
       if (data.category_Image) {
         formData.append('category_Image', data.category_Image);
+        console.log(data.category_Image)
       } else {
         console.error('category_Image is missing');
       }

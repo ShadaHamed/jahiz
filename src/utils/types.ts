@@ -47,6 +47,27 @@ export type Category = {
   status: string;
 
 }
+export type Product = {
+  "id":string,
+  "name": string,
+  "code": string,
+  "description": string,
+  "features": {value: string} [],
+  "total_quantity": number,
+  "sale_price": number,
+  "status": "active" | "inactive",
+  "discount": number,
+  "shipping_fee": number,
+  "discount_start": string,
+  "discount_end": string,
+  "barcode": string,
+  "sales": number,
+  "current_sold_items": number,
+  "product_type_id": number,
+  "currency_id": number,
+  "store_id": number,
+  "image": string | null
+}
 export type Role = {
   id: string;
   name: string;
@@ -69,6 +90,21 @@ export type Region = {
   status: string;
 
 }
+export type ProductType = {
+  id: number;
+  name: string
+}
+export type Store = {
+  id: number;
+  name: string
+}
+export type Currency = {
+  id: number;
+  name: string;
+  symbol: string;
+  iso_code: string;
+}
+
 export type LoginUser = Pick<User, 'email' | 'password'>;
 
 export type Repository = {

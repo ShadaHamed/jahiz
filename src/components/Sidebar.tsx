@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import {  IoMdCart } from "react-icons/io";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard,MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { FaChartBar, FaCity  } from "react-icons/fa";
 import { GrStatusPlaceholderSmall } from "react-icons/gr";
+
 import { useState } from 'react';
 import Image from "next/image"
 // import profile from '../../public/profile.png';
@@ -78,7 +79,7 @@ function Sidebar() {
             <Link href="/admin/dashboard" passHref>
               <div className={`flex items-center p-2 rounded-md ${isCollapsed ? 'justify-center' : ''} ${pathname === '/admin/dashboard' ? 'bg-primaryColor text-white': ''}`}               
                onClick={() => setIsOpen(false)}>
-                <MdDashboard className='text-[#a75ff0]' />
+                <MdDashboard className='text-slate-500' />
               {!isCollapsed && <span className="ml-2">Dashboard</span>}
             </div>
           </Link>
@@ -88,7 +89,7 @@ function Sidebar() {
           <Link href="/branches">
             <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/branches' ? 'bg-primaryColor text-white': ''}`}
                  onClick={() => setIsOpen(false)}>
-                <IoMdCart className='text-[#a75ff0]'/>
+                <IoMdCart className='text-slate-500'/>
               {!isCollapsed && <span className="ml-2"> Branches </span>}
             </div>
           </Link>
@@ -96,7 +97,7 @@ function Sidebar() {
           <Link href="/cities">
             <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/cities' ? 'bg-primaryColor text-white': ''}`}
                  onClick={() => setIsOpen(false)}>
-                <FaCity className='text-[#a75ff0]'/>
+                <FaCity className='text-slate-500'/>
               {!isCollapsed && <span className="ml-2"> Cities </span>}
             </div>
           </Link>
@@ -104,7 +105,7 @@ function Sidebar() {
           <Link href="/regions">
             <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/regions' ? 'bg-primaryColor text-white': ''}`}
                  onClick={() => setIsOpen(false)}>
-                <GrStatusPlaceholderSmall className='text-[#a75ff0]'/>
+                <GrStatusPlaceholderSmall className='text-slate-500'/>
               {!isCollapsed && <span className="ml-2"> Regions </span>}
             </div>
           </Link>
@@ -113,15 +114,23 @@ function Sidebar() {
           <Link href="/categories">
             <div className={`flex items-center p-2 rounded-md ${isCollapsed ? 'justify-center' : ''} ${pathname === '/categories' ? 'bg-primaryColor text-white': ''}`}
                 onClick={() => setIsOpen(false)}>
-              <BiSolidCategoryAlt className='text-[#a75ff0]' />
+              <BiSolidCategoryAlt className='text-slate-500' />
               {!isCollapsed && <span className="ml-2"> Categories </span>}
+            </div>
+          </Link>
+
+          <Link href="/products">
+            <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/products' ? 'bg-primaryColor text-white': ''}`}
+                onClick={() => setIsOpen(false)}>
+                <MdOutlineProductionQuantityLimits className='text-slate-500'/>
+            {!isCollapsed && <span className="ml-2"> Products </span>}
             </div>
           </Link>
 
           <Link href="/users">
             <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/users' ? 'bg-primaryColor text-white': ''}`}
                 onClick={() => setIsOpen(false)}>
-                <MdPeopleAlt className='text-[#a75ff0]'/>
+                <MdPeopleAlt className='text-slate-500'/>
             {!isCollapsed && <span className="ml-2"> Users </span>}
             </div>
           </Link>

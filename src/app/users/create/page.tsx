@@ -1,19 +1,13 @@
 'use client'
 import userRepository from '@/apiCalls/userRepository';
-import ReusableForm from '@/components/ReusableForm'
 import { useRouter } from 'next/navigation';
 import { Role, User } from '@/utils/types';
-import { userFormFields } from '@/utils/formFields';
-import BackButton from '@/components/Buttons';
 import Stepper from './Stepper';
-import StepperController from './StepperController';
 import AccountInfo from './formTabs/AccountInfo';
 import PersonalDetails from './formTabs/PersonalDetails';
-import Final from './formTabs/Final';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import roleRepository from '@/apiCalls/roleRepository';
 import { useGlobal } from '../userContext';
 
@@ -37,6 +31,7 @@ const UserForm = () => {
   const { register, handleSubmit, formState: { errors }, setError, clearErrors, trigger, watch } = useForm<User>({mode: 'onTouched'});
   const[localLoading, setLocalLoading] = useState(false);
 
+  //fetch data required for dropdown
   useEffect(() => {
     const fetchRoles = async () => {
       try {
@@ -117,11 +112,6 @@ const handleClick = async (direction: 'next' | 'back') => {
 
   // Clear all errors before navigating
   clearErrors();
-
-  // const fieldsToValidate: Record<number, ('name.ar'| 'name.en'| 'email' | 'address'| 'phone_number' | 'password' | 'password_confirmation'| 'role')[]> = {
-  //   1: ['name.ar', 'name.en', 'email', 'address', 'phone_number'], // Fields for step 1
-  //   2: ['password', 'password_confirmation', 'role'], // Fields for step 2
-  // };
 
   if (direction === "next") {
     const isValid = await trigger();

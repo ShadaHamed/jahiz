@@ -98,7 +98,7 @@ export const FilteredCategories = () => {
               >
                 <ul className="py-2">
                   <li
-                    onClick={() => setEditingCategory(category)}
+                    onClick={() => handleCategoryUpdated}
                     className="cursor-pointer"
                   >
                     <a className="block px-4 py-2 text-primaryColor hover:bg-light">Edit</a>

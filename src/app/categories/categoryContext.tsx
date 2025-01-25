@@ -92,12 +92,12 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [categories, searchParams, noCategoryToastShown]);
 
+  const query = searchParams.get('query') || '';
   const pages = Math.ceil(filteredCategories.length / KANBAN_ITEMS_PER_PAGE);
-  const startIndex = (pageNumber - 1) * KANBAN_ITEMS_PER_PAGE;
-  const currentPageCategories = filteredCategories.slice(
-    startIndex,
-    Math.min(startIndex + KANBAN_ITEMS_PER_PAGE, filteredCategories.length)
-  );
+  const startIndex = query ? 0 : (pageNumber - 1) * KANBAN_ITEMS_PER_PAGE;
+  const currentPageCategories = query? filteredCategories :
+  filteredCategories.slice( startIndex, Math.min(startIndex + KANBAN_ITEMS_PER_PAGE, filteredCategories.length));
+  
   const refetchCategories = async () => {
     setLoading(true);
     try {

@@ -2,10 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import ReusableForm from '@/components/ReusableForm';
 import { Role, User } from '@/utils/types';
 import userRepository from '@/apiCalls/userRepository';
-import { userFormFields } from '@/utils/formFields';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import roleRepository from '@/apiCalls/roleRepository';
@@ -89,8 +87,8 @@ const EditCustomerForm: React.FC<EditCustomerFormProps> = ({ id, initialValues }
                 {...register("name.en", {
                   required: "Name in English is required",
                   pattern: {
-                    value: /^[a-zA-Z\s-]+$/,
-                    message: "Name in English must contain only English letters"
+                  value: /^[a-zA-Z\s-]+$/,
+                  message: "Name in English must contain only English letters"
                   }
                 })}
               />
