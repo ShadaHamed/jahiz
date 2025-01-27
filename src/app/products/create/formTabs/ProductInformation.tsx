@@ -250,7 +250,7 @@ const ProductInformation: React.FC<ProductInformationProps<Product>> = ({
         <div className="flex flex-col items-center">
           {loacalLoading ? (
             <div className="text-gray-500 bg-gray-50 flex items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg">
-              <span className="">Uploading...</span>
+              <span className="animate-pulse">Uploading...</span>
             </div>
           ) : (
             imagePreview ? (
