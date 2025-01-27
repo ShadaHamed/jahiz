@@ -213,7 +213,7 @@ const handleClick = async (direction: 'next' | 'back') => {
       <button
         type="button"
         onClick={() => router.push('/products')}
-        className="bg-white text-primaryColor text-xs uppercase py-1 px-2 rounded-lg font-semibold cursor-pointer border border-primaryColor hover:text-white hover:bg-primaryColor transition duration-200 ease-in-out">
+        className="bg-white text-primaryColor text-xs uppercase py-2 px-2 rounded-lg font-semibold cursor-pointer border border-primaryColor hover:text-white hover:bg-primaryColor transition duration-200 ease-in-out">
         Cancel
       </button>
 
@@ -221,8 +221,8 @@ const handleClick = async (direction: 'next' | 'back') => {
       <button
         type="button"
         onClick={() => handleClick("back")}
-        className={`bg-white text-primaryColor text-xs uppercase py-1 px-4 rounded-lg font-semibold cursor-pointer border border-primaryColor transition duration-200 ease-in-out ${
-          currentStep === 1 ? "opacity-50 cursor-not-allowed pointer-events-none" : "hover:bg-primaryColor hover:text-white"
+        className={`bg-white text-primaryColor text-xs uppercase py-2 px-4 rounded-lg font-semibold cursor-pointer border border-primaryColor transition duration-200 ease-in-out ${
+          currentStep === 1 ? "hidden" : "hover:bg-primaryColor hover:text-white"
         }`}
         disabled={currentStep === 1}>
         Back

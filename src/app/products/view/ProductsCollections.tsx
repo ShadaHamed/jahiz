@@ -46,11 +46,11 @@ function ProductsCollections() {
   }, []);
 
   return (
-    <>
+    <div className='flex flex-col items-center justify-between'>
       <section
         id="Projects"
-        className="rounded-lg px-4 mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-6 justify-items-center gap-y-10 gap-x-10 mb-5"
-      >
+        className="rounded-lg px-4 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2  xl:grid-cols-4 2xl:grid-cols-6 justify-items-center gap-y-8 gap-x-6 md:gap-y-10 md:gap-x-8 mb-5"
+        >
         {loading ? (
           <SkeletonLoadingProducts count={8} />
         ) : currentPageProducts.length > 0 ? (
@@ -136,8 +136,10 @@ function ProductsCollections() {
           <p className="text-center text-gray-500">No products available.</p>
         )}
       </section>
-      <Pagination pageNumber={pageNumber} pages={pages} route="/products" />
-    </>
+      <div className="w-full flex justify-center mt-10">
+        <Pagination pageNumber={pageNumber} pages={pages} route="/products" />
+      </div>
+    </div>
   );
 }
 

@@ -28,6 +28,10 @@ const InventoryAndPricing: React.FC<InventoryAndPricingProps<Product>> = ({regis
               message: "Total Quantity must contain only numbers"
             }
             })}
+            onInput={(e) => {
+              const target = e.target as HTMLInputElement;
+              target.value = target.value.replace(/^0+/, '');
+            }}
           placeholder="Enter total quantity"
           className="w-full p-2 border rounded"
         />
@@ -49,6 +53,10 @@ const InventoryAndPricing: React.FC<InventoryAndPricingProps<Product>> = ({regis
                   value: /^\d+(\.\d+)?$/ ,
                   message: "sale_price must contain only numbers"
                 } })}
+                onInput={(e) => {
+                  const target = e.target as HTMLInputElement;
+                  target.value = target.value.replace(/^0+/, '');
+                }}
               placeholder="Enter sale price"
               className="w-full p-2 border rounded"
             />
@@ -69,6 +77,10 @@ const InventoryAndPricing: React.FC<InventoryAndPricingProps<Product>> = ({regis
                   value: /^\d+(\.\d+)?$/ ,
                   message: "Shipping fee must contain only numbers"
                 } })}
+                onInput={(e) => {
+                  const target = e.target as HTMLInputElement;
+                  target.value = target.value.replace(/^0+/, '');
+                }}
               placeholder="Enter shipping fee"
               className="w-full p-2 border rounded"
             />
@@ -104,7 +116,10 @@ const InventoryAndPricing: React.FC<InventoryAndPricingProps<Product>> = ({regis
               message: "discount must contain only numbers"
             } })}
           placeholder="Enter discount value"
-          className="w-full p-2 border rounded"
+          onInput={(e) => {
+            const target = e.target as HTMLInputElement;
+            target.value = target.value.replace(/^0+/, '');
+          }}          className="w-full p-2 border rounded"
         />
         {errors.discount && <p className="text-red-500 text-sm">{errors.discount?.message}</p>}
       </div>

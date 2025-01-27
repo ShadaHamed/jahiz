@@ -15,11 +15,6 @@ const RegionTable = () => {
   const {processedRegions, pages, pageNumber,refrechRegions, loading} = useRegionGlobal();
   const router = useRouter();
 
-  console.log('processedRegions', processedRegions)
-  console.log('pages', pages)
-  console.log('page num', pageNumber)
-  console.log('RegionCount', processedRegions.length)
-
   const columns= ['english_name', 'arabic_name', 'cityName', 'status'];
 
   const deleteData: {

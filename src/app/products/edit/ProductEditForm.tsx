@@ -24,7 +24,6 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
   id,
   initialValues,
 }) => {
-  console.log('initialValues' , initialValues)
   const [imagePreview, setImagePreview] = useState<string | null>(initialValues.image);
   const [productTypes, setProductTypes] = useState<ProductType[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>([]);
@@ -69,6 +68,7 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
     fetchData();
 
   }, []);
+
   const handleEditSubmit = async (data: ProductFormValues) => {
     setLoading(true);
     setLocalLoading(true);
@@ -85,7 +85,6 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
     }
   };
   const handleReplaceClick = () => {
-    console.log("Replace clicked");
     setImagePreview(null);
     if (fileInputRefPreview.current) {
       fileInputRefPreview.current.value = ""; // Reset the file input value
@@ -100,7 +99,7 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log("Selected file:", file.name, file.type, file.size);
+      // console.log("Selected file:", file.name, file.type, file.size);
   
       const reader = new FileReader();
       reader.onload = async() => {
@@ -141,7 +140,7 @@ const ProductEditForm: React.FC<ProductEditFormProps> = ({
   
       // Read the response as a blob (binary data)
       const blob = await response.blob();
-      console.log('Blob received:', blob);
+      // console.log('Blob received:', blob);
   
       // Convert the blob to a base64 string
       const base64 = await new Promise<string>((resolve, reject) => {

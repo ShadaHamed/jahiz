@@ -89,7 +89,6 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   }, []); 
   
   const uniqueCities = [...new Set(regions.map((region) => region.name))];
-console.log('uniqueCities', uniqueCities)
 
   // Filter regions based on the query
   const filteredRegions = regions.filter((region) =>{

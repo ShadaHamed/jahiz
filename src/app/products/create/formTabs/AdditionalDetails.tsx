@@ -56,6 +56,10 @@ const AdditionalDetails:React.FC<AdditionalDetailsProps<Product>> = ({register,e
               message: "Sales must contain only numbers"
             }
            })}
+           onInput={(e) => {
+            const target = e.target as HTMLInputElement;
+            target.value = target.value.replace(/^0+/, '');
+          }}
           placeholder="Enter sales value"
           className="w-full p-2 border rounded"
         />
@@ -73,6 +77,10 @@ const AdditionalDetails:React.FC<AdditionalDetailsProps<Product>> = ({register,e
               value: /^[0-9]+$/ ,
               message: "Current Sold Items must contain only numbers"
             } })}
+            onInput={(e) => {
+              const target = e.target as HTMLInputElement;
+              target.value = target.value.replace(/^0+/, '');
+            }}
           placeholder="Enter current sold items"
           className="w-full p-2 border rounded"
         />

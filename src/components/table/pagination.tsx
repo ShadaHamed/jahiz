@@ -20,7 +20,7 @@ const Pagination = ({ pageNumber, pages, route }: PaginationProps) => {
     href={pageNumber > 1 ? `${route}?pageNumber=${prev}` : "#"}
     className={`${
       pageNumber === 1
-        ? " text-gray-300 cursor-not-allowed"
+        ? "hidden"
         : "bg-white text-gray-700 hover:bg-gray-300"
     } border-r-0 border border-gray-300 rounded-md px-4 py-1 transition`}
     aria-disabled={pageNumber === 1}
@@ -46,7 +46,7 @@ const Pagination = ({ pageNumber, pages, route }: PaginationProps) => {
     href={pageNumber < pages ? `${route}?pageNumber=${next}` : "#"}
     className={`${
       pageNumber === pages
-        ? "text-gray-300 cursor-not-allowed"
+        ? "hidden"
         : "bg-white text-gray-700 hover:bg-gray-300"
     }  border-l-0 border border-gray-300 rounded-md px-3 py-1 transition`}
     aria-disabled={pageNumber === pages}
