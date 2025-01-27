@@ -20,11 +20,12 @@ const BranchTable = () => {
         editLink="/branches/edit"
         isLoading={loading} />
         
-      <Pagination
+      {!loading && <Pagination
       pageNumber={pageNumber}
       pages={pages}
       route="/branches"
-    />
+    />}
+
     </div>
   )
 }

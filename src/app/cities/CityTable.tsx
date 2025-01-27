@@ -41,12 +41,12 @@ const CityTable = () => {
         handleDelete={handleDelete} 
         isLoading={loading} />
         
-      <Pagination
+      {!loading && <Pagination
         pageNumber={pageNumber}
         pages={pages}
         route="/cities"
+      />}
 
-      />
     </div>
   )
 }

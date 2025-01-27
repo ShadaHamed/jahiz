@@ -137,7 +137,7 @@ function ProductsCollections() {
         )}
       </section>
       <div className="w-full flex justify-center mt-10">
-        <Pagination pageNumber={pageNumber} pages={pages} route="/products" />
+        {!loading && <Pagination pageNumber={pageNumber} pages={pages} route="/products" />}
       </div>
     </div>
   );

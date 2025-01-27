@@ -60,12 +60,12 @@ const RegionTable = () => {
         handleDelete={handleDelete} 
         isLoading={loading} />
         
-      <Pagination
+      {!loading && <Pagination
         pageNumber={pageNumber}
         pages={pages}
         route="/regions"
+      />}
 
-      />
     </div>
   )
 }

@@ -60,12 +60,12 @@ const UserTable = () => {
          />
       }
         
-      <Pagination
+      {!loading && <Pagination
         pageNumber={pageNumber}
         pages={pages}
         route="/users"
+      />}
 
-      />
     </div>
   )
 }

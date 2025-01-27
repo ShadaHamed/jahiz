@@ -173,7 +173,7 @@ const UserKanbanView: React.FC<UserKanbanViewProps> = ({ onDelete }) => {
               </div>
             ))}
       </div>
-      <Pagination pageNumber={pageNumber} pages={k_pages} route="/users" />
+      {!loading && <Pagination pageNumber={pageNumber} pages={k_pages} route="/users" />}
     </div>
   );
 };

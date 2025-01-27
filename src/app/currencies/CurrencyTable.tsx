@@ -37,12 +37,12 @@ const CurrencyTable = () => {
         handleDelete={handleDelete} 
         isLoading={loading} />
         
-      <Pagination
+      {!loading && <Pagination
         pageNumber={pageNumber}
         pages={pages}
         route="/currencies"
 
-      />
+      />}
     </div>  )
 }
 
