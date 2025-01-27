@@ -36,7 +36,7 @@ const CurrencyForm = () => {
     validation: { 
       required: 'symbol of Currency is required',
       pattern: {
-        value: /^[A-Za-z]{3}$|^[\u0024\u00A3\u00A5\u20AC]$/,
+        value: /^[A-Za-z\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\u0024\u00A3\u00A5\u20AC]+$/,
         message: "invalid currency symbol"
       } },
   },
