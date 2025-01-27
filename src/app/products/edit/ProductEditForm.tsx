@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useProductsContext } from '../productcontext';
 import productTypeRepository from '@/apiCalls/productTypesRepository';
-import currencyRepository from '@/apiCalls/currancyRepository';
+import currencyRepository from '@/apiCalls/CurrencyRepository';
 import storeRepository from '@/apiCalls/storeRepository';
 
 type ProductFormValues = Omit<Product, 'id'> & {

@@ -8,7 +8,7 @@ import SkeletonTable from './SkeletonTable';
 
 //@ts-nocheck
 type DynamicTableProps<T extends Record<string, any>> = {
-  columns: (keyof T)[];
+  columns: string[];
   data: T[];
   editLink: string;
   handleDelete?: (id :string) => void;

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { useProductsContext } from '../productcontext';
 import productTypeRepository from '@/apiCalls/productTypesRepository';
 import storeRepository from '@/apiCalls/storeRepository';
-import currancyRepository from '@/apiCalls/currancyRepository';
+import currancyRepository from '@/apiCalls/CurrencyRepository';
 import ProductInformation from './formTabs/ProductInformation';
 import InventoryAndPricing from './formTabs/InventoryAndPricing';
 import AdditionalDetails from './formTabs/AdditionalDetails';

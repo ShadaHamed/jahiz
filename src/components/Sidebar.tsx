@@ -4,7 +4,8 @@ import Link from 'next/link';
 import {  IoMdCart } from "react-icons/io";
 import { MdDashboard,MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { FaChartBar, FaCity  } from "react-icons/fa";
-import { GrStatusPlaceholderSmall } from "react-icons/gr";
+import { GrStatusPlaceholderSmall, GrCurrency } from "react-icons/gr";
+
 
 import { useState } from 'react';
 import Image from "next/image"
@@ -135,7 +136,16 @@ function Sidebar() {
             </div>
           </Link>
 
+
           <h4 className={`text-gray-800 font-bold ${isCollapsed ? 'hidden' : ''}`}>PAYMENTS</h4>
+
+          <Link href="/currencies">
+            <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/currencies' ? 'bg-primaryColor text-white': ''}`}
+                onClick={() => setIsOpen(false)}>
+                <GrCurrency className='text-slate-500'/>
+            {!isCollapsed && <span className="ml-2"> Currency </span>}
+            </div>
+          </Link>
 
           {user ? <Link href="#">
             <div className={`flex items-center p-2 rounded-md hover:bg-gray-300 ${isCollapsed ? 'justify-center' : ''}`}

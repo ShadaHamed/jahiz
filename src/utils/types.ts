@@ -104,6 +104,7 @@ export type Currency = {
   symbol: string;
   iso_code: string;
 }
+export type CurrencyFormValues = Omit<Currency, 'id'>
 
 export type LoginUser = Pick<User, 'email' | 'password'>;
 
