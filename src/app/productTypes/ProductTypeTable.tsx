@@ -18,10 +18,8 @@ const ProductTypeTable = () => {
       try {
           await productTypeRepository.deleteProductType(id) 
           toast.success('Product type deleted successfully!');
-          window.location.reload(); 
           const currentUrl = window.location.pathname;
           const params = new URLSearchParams(window.location.search);
-
            // Check if it's the last item on the last page
         if (pages === pageNumber && processedProductTypes.length === 1) {
           if (pageNumber > 1) {
