@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {  IoMdCart } from "react-icons/io";
-import { MdDashboard,MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdDashboard,MdOutlineProductionQuantityLimits, MdCategory  } from "react-icons/md";
 import { FaChartBar, FaCity  } from "react-icons/fa";
 import { GrStatusPlaceholderSmall, GrCurrency } from "react-icons/gr";
 
@@ -117,6 +117,14 @@ function Sidebar() {
                 onClick={() => setIsOpen(false)}>
               <BiSolidCategoryAlt className='text-slate-500' />
               {!isCollapsed && <span className="ml-2"> Categories </span>}
+            </div>
+          </Link>
+
+          <Link href="/productTypes">
+            <div className={`flex items-center p-2 rounded-md  ${isCollapsed ? 'justify-center' : ''} ${pathname === '/productTypes' ? 'bg-primaryColor text-white': ''}`}
+                onClick={() => setIsOpen(false)}>
+                <MdCategory  className='text-slate-500'/>
+            {!isCollapsed && <span className="ml-2"> Product Types </span>}
             </div>
           </Link>
 

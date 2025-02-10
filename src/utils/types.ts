@@ -25,7 +25,10 @@ export type RegionFormValues = {
   cityID: string;
   status:string;
 }
-
+export type ProductTypeFormValues = {
+  name: string;
+  categoryID: string;
+}
 export type User = {
     id: string
     name: {
@@ -92,7 +95,8 @@ export type Region = {
 }
 export type ProductType = {
   id: number;
-  name: string
+  name: string;
+  categoryID: string;
 }
 export type Store = {
   id: number;
